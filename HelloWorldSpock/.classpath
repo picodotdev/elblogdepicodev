@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/test/groovy"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.codehaus.groovy/groovy-all/1.8.6/jar/96a26bfa6e5aea2e3c46df44a19de93a2acd2366/groovy-all-1.8.6.jar" sourcepath="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.codehaus.groovy/groovy-all/1.8.6/source/2ac423ad404db3e3d9053c626d4c15a84cd18b73/groovy-all-1.8.6-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.mockito/mockito-all/1.9.0/jar/d13863fbd7c0bc32845c9d8a261d03b61bf28194/mockito-all-1.9.0.jar" sourcepath="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.mockito/mockito-all/1.9.0/source/3cdbb5d11e1cf6c98b4d3697d9eeaa71ad59ef47/mockito-all-1.9.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.spockframework/spock-core/0.6-groovy-1.8/jar/5c1bfb5058c3659ddc206052601704ccd30133a5/spock-core-0.6-groovy-1.8.jar" sourcepath="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.spockframework/spock-core/0.6-groovy-1.8/source/e86c73c53149bbd8a260f7a486c4d9667be5b9d2/spock-core-0.6-groovy-1.8-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.hamcrest/hamcrest-core/1.2/jar/44d12ff84e43c7d0539131f75c92f2f88dba6549/hamcrest-core-1.2.jar" sourcepath="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/org.hamcrest/hamcrest-core/1.2/source/e9be1c6a53b4d4e7564756e924a9fa8b1661ec6a/hamcrest-core-1.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/junit/junit-dep/4.9/jar/1013627e3993319870863a020034004717505815/junit-dep-4.9.jar" sourcepath="/home/dgonzalez/.gradle/caches/artifacts-13/filestore/junit/junit-dep/4.9/source/84b903feddab2bd58f5ab2fc0c5c636df42df74d/junit-dep-4.9-sources.jar"/>
+	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
