@@ -11,7 +11,7 @@ public class HelloWorldTest extends ActivitiAbstractTest {
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-h2.cfg.xml");
 	
 	@Test
-	@Deployment(resources = "bpmn/helloWorld/HelloWorld.bpmn20.xml")
+	@Deployment(resources = "bpmn/HelloWorld.bpmn20.xml")
 	public void test1() {
 		activitiRule.getRuntimeService().startProcessInstanceByKey("helloWorld");
 

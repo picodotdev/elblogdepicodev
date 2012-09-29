@@ -1,0 +1,23 @@
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+        xmlns:activiti="http://activiti.org/bpmn"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd"
+        targetNamespace="HelloWorldActiviti">
+
+    <process id="variables" name="Variables" isExecutable="true">
+        <startEvent id="start" />            
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="descuentoTask" />
+
+        <scriptTask id="descuentoTask" scriptFormat="groovy">
+            <script>
+                output.descuento = new java.math.BigDecimal('0')
+                if (cliente.tipo == es.com.blogspot.elblogdepicodev.activiti.misc.Cliente.Tipo.VIP) {
+                    output.descuento = new java.math.BigDecimal('10')
+                }
+            </script>            
+        </scriptTask>
+        <sequenceFlow id="flow2" sourceRef="descuentoTask" targetRef="end" />
+
+        <endEvent id="end" />  
+    </process>
+</definitions>
