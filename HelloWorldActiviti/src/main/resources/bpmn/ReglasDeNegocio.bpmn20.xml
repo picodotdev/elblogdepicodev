@@ -1,0 +1,46 @@
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+        xmlns:activiti="http://activiti.org/bpmn"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd"
+        targetNamespace="HelloWorldActiviti">
+
+    <process id="reglasDeNegocio" name="Reglas de negocio" isExecutable="true">
+        <startEvent id="start" />            
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="determinarTipoClienteTask" />
+        
+        <businessRuleTask id="determinarTipoClienteTask" 
+                activiti:ruleVariablesInput="${cliente},${importe}"
+                activiti:rules="TipoClienteVIP,TipoClienteNormal"/>
+        <sequenceFlow id="flow2" sourceRef="determinarTipoClienteTask" targetRef="determinarDescuentoTask" />    
+        
+        <businessRuleTask id="determinarDescuentoTask"
+                activiti:ruleVariablesInput="${cliente},${output}"
+                activiti:rules="DescuentoClienteVIP,DescuentoClienteNormal"/>
+        <sequenceFlow id="flow3" sourceRef="determinarDescuentoTask" targetRef="determinarTipoEnvioTask" />
+        
+        <businessRuleTask id="determinarTipoEnvioTask"
+                activiti:ruleVariablesInput="${cliente},${output}"
+                activiti:rules="TipoEnvioClienteVIP,TipoEnvioClienteNormal"/>
+        <sequenceFlow id="flow4" sourceRef="determinarTipoEnvioTask" targetRef="tipoEnvioGateway" />
+
+        <exclusiveGateway id="tipoEnvioGateway"/>
+        <sequenceFlow sourceRef="tipoEnvioGateway" targetRef="envioNormalTask">
+            <conditionExpression xsi:type="tFormalExpression">${output.tipoEnvio == 'normal'}</conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow sourceRef="tipoEnvioGateway" targetRef="envioUrgenteTask">
+            <conditionExpression xsi:type="tFormalExpression">${output.tipoEnvio == 'urgente'}</conditionExpression>
+        </sequenceFlow>
+
+        <scriptTask id="envioNormalTask" scriptFormat="groovy">
+            <script>println('Envío normal')</script>            
+        </scriptTask>
+        <sequenceFlow id="flow5" sourceRef="envioNormalTask" targetRef="end" />
+                
+        <scriptTask id="envioUrgenteTask" scriptFormat="groovy">
+            <script>println('Envío urgente')</script>            
+        </scriptTask>
+        <sequenceFlow id="flow6" sourceRef="envioUrgenteTask" targetRef="end" />
+
+        <endEvent id="end" />  
+    </process>
+</definitions>
