@@ -1,0 +1,22 @@
+package es.com.blogspot.elblogdepicodev.activiti
+
+import java.math.BigDecimal;
+
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente;
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente.Tipo;
+
+rule "TipoClienteVIP"
+when
+    BigDecimal(this.compareTo(new BigDecimal('100')) == 1)
+    c: Cliente()
+then
+    c.setTipo(Tipo.VIP);    
+end
+
+rule "TipoClienteNormal"
+when
+    BigDecimal(this.compareTo(new BigDecimal('100')) <= 0)
+    c: Cliente()
+then
+    c.setTipo(Tipo.NORMAL);
+end

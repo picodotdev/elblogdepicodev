@@ -6,6 +6,10 @@ public class Cliente implements Serializable {
 	
 	private static final long serialVersionUID = -1041162141646175002L;
 
+	public enum Tipo {
+		VIP, NORMAL
+	}
+	
 	Tipo tipo;
 	
 	public Cliente() {
@@ -16,7 +20,11 @@ public class Cliente implements Serializable {
 		this.tipo = tipo;
 	}
 	
-	public enum Tipo {
-		VIP, NORMAL
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 }

@@ -1,0 +1,22 @@
+package es.com.blogspot.elblogdepicodev.activiti
+
+import java.util.Map;
+
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente;
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente.Tipo;
+
+rule "TipoEnvioClienteVIP"
+when
+    Cliente(tipo == Cliente.Tipo.VIP)
+    o: Map()
+then
+    o.put('tipoEnvio', 'urgente');
+end
+
+rule "TipoEnvioClienteNormal"
+when
+    Cliente(tipo == Cliente.Tipo.NORMAL)
+    o: Map()
+then
+    o.put('tipoEnvio', 'normal');
+end

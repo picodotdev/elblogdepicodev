@@ -7,6 +7,11 @@
         <property name="databaseSchemaUpdate" value="true" />   
         
         <property name="expressionManager" ref="servicioExpressionManager" />
+        <property name="customPostDeployers">
+            <list>
+                <ref bean="rulesDeployer"/>
+            </list>
+        </property>
     </bean>
     
     <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" >
@@ -17,4 +22,5 @@
     </bean>
     
     <bean id="servicioExpressionManager" class="es.com.blogspot.elblogdepicodev.activiti.ServicioExpressionManager"/>
+    <bean id="rulesDeployer" class="org.activiti.engine.impl.rules.RulesDeployer"/>
 </beans>

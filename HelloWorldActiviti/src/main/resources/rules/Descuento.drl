@@ -1,0 +1,23 @@
+package es.com.blogspot.elblogdepicodev.activiti
+
+import java.math.BigDecimal;
+import java.util.Map;
+
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente;
+import es.com.blogspot.elblogdepicodev.activiti.misc.Cliente.Tipo;
+
+rule "DescuentoClienteVIP"
+when
+    Cliente(tipo == Cliente.Tipo.VIP)
+    o: Map()
+then
+    o.put('descuento', new BigDecimal('10'));
+end
+
+rule "DescuentoClienteNormal"
+when
+    Cliente(tipo == Cliente.Tipo.NORMAL)
+    o: Map()
+then
+    o.put('descuento', BigDecimal.ZERO);
+end
