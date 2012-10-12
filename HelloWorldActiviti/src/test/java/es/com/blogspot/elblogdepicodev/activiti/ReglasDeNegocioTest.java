@@ -19,18 +19,18 @@ public class ReglasDeNegocioTest extends ActivitiAbstractTest {
 
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-h2.cfg.xml");
-	
+
 	@Test
-	@Deployment(resources = { "bpmn/ReglasDeNegocio.bpmn20.xml", "rules/TipoCliente.drl", "rules/Descuento.drl", "rules/TipoEnvio.drl"})
+	@Deployment(resources = { "bpmn/ReglasDeNegocio.bpmn20.xml", "rules/TipoCliente.drl", "rules/Descuento.drl", "rules/TipoEnvio.drl" })
 	public void testNormal() {
 		Cliente cliente = new Cliente();
 		Map output = new HashMap();
-		
+
 		Map variables = new HashMap();
 		variables.put("cliente", cliente);
 		variables.put("importe", new BigDecimal("50"));
 		variables.put("output", output);
-		
+
 		RuntimeService rs = activitiRule.getRuntimeService();
 		rs.startProcessInstanceByKey("reglasDeNegocio", variables);
 
@@ -38,19 +38,19 @@ public class ReglasDeNegocioTest extends ActivitiAbstractTest {
 		Assert.assertEquals(BigDecimal.ZERO, output.get("descuento"));
 		Assert.assertEquals("normal", output.get("tipoEnvio"));
 	}
-	
+
 	@Test
-	@Deployment(resources = { "bpmn/ReglasDeNegocio.bpmn20.xml", "rules/TipoCliente.drl", "rules/Descuento.drl", "rules/TipoEnvio.drl"})
+	@Deployment(resources = { "bpmn/ReglasDeNegocio.bpmn20.xml", "rules/TipoCliente.drl", "rules/Descuento.drl", "rules/TipoEnvio.drl" })
 	public void testVIP() {
 		Cliente cliente = new Cliente();
 		Map output = new HashMap();
-		
+
 		Map variables = new HashMap();
 		variables.put("cliente", cliente);
 		variables.put("importe", new BigDecimal("150"));
 		variables.put("output", output);
-		
-		RuntimeService rs = activitiRule.getRuntimeService();		
+
+		RuntimeService rs = activitiRule.getRuntimeService();
 		rs.startProcessInstanceByKey("reglasDeNegocio", variables);
 
 		Assert.assertEquals(cliente.getTipo(), Tipo.VIP);

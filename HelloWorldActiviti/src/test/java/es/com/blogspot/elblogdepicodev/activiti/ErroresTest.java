@@ -17,29 +17,29 @@ public class ErroresTest extends ActivitiAbstractTest {
 
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-h2.cfg.xml");
-	
+
 	@Test
 	@Deployment(resources = "bpmn/Errores.bpmn20.xml")
 	public void testHayExistencias() {
 		Producto producto = new Producto("Arch Linux T-Shirt", 10l);
-		
+
 		Map variables = new HashMap();
 		variables.put("producto", producto);
-		
+
 		RuntimeService rs = activitiRule.getRuntimeService();
 		rs.startProcessInstanceByKey("errores", variables);
 
 		Assert.assertEquals(new Long(9), producto.getExistencias());
 	}
-	
+
 	@Test
 	@Deployment(resources = "bpmn/Errores.bpmn20.xml")
 	public void testNoHayExistencias() {
 		Producto producto = new Producto("Arch Linux Mug", 0l);
-		
+
 		Map variables = new HashMap();
 		variables.put("producto", producto);
-		
+
 		RuntimeService rs = activitiRule.getRuntimeService();
 		rs.startProcessInstanceByKey("errores", variables);
 

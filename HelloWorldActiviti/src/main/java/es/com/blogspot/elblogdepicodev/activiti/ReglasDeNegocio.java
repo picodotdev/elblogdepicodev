@@ -29,12 +29,8 @@ public class ReglasDeNegocio {
 			RuntimeService runtimeService = processEngine.getRuntimeService();
 			RepositoryService repositoryService = processEngine.getRepositoryService();
 
-			repositoryService.createDeployment()
-				.addClasspathResource("bpmn/ReglasDeNegocio.bpmn20.xml")
-				.addClasspathResource("rules/TipoCliente.drl")
-				.addClasspathResource("rules/Descuento.drl")
-				.addClasspathResource("rules/TipoEnvio.drl")
-				.deploy();
+			repositoryService.createDeployment().addClasspathResource("bpmn/ReglasDeNegocio.bpmn20.xml").addClasspathResource("rules/TipoCliente.drl")
+					.addClasspathResource("rules/Descuento.drl").addClasspathResource("rules/TipoEnvio.drl").deploy();
 
 			Cliente cliente = new Cliente(Tipo.NORMAL);
 			Map variables = new HashMap();
@@ -42,9 +38,9 @@ public class ReglasDeNegocio {
 			variables.put("cliente", cliente);
 			variables.put("importe", new BigDecimal("150"));
 			variables.put("output", output);
-			
-			ProcessInstance pi = runtimeService.startProcessInstanceByKey("reglasDeNegocio", variables);			
-			
+
+			ProcessInstance pi = runtimeService.startProcessInstanceByKey("reglasDeNegocio", variables);
+
 			System.out.println("Tipo cliente: " + cliente.getTipo());
 			System.out.println("Descuento aplicado: " + output.get("descuento"));
 		} finally {

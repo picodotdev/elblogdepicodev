@@ -35,9 +35,9 @@ public class Variables {
 			Map output = new HashMap();
 			variables.put("cliente", cliente);
 			variables.put("output", output);
-			
-			ProcessInstance pi = runtimeService.startProcessInstanceByKey("variables", variables);			
-			
+
+			ProcessInstance pi = runtimeService.startProcessInstanceByKey("variables", variables);
+
 			System.out.println("Descuento aplicado: " + output.get("descuento"));
 		} finally {
 			ProcessEngines.destroy();

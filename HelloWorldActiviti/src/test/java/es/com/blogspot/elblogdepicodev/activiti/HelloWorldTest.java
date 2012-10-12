@@ -9,7 +9,7 @@ public class HelloWorldTest extends ActivitiAbstractTest {
 
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule("activiti-h2.cfg.xml");
-	
+
 	@Test
 	@Deployment(resources = "bpmn/HelloWorld.bpmn20.xml")
 	public void test1() {

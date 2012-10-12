@@ -33,9 +33,9 @@ public class Errores {
 			Producto producto = new Producto("Arch Linux T-Shirt", 10l);
 			Map variables = new HashMap();
 			variables.put("producto", producto);
-			
+
 			ProcessInstance pi = runtimeService.startProcessInstanceByKey("errores", variables);
-			
+
 			System.out.println(MessageFormat.format("Las nuevas existencias de {0} son {1}", producto.getNombre(), producto.getExistencias()));
 		} finally {
 			ProcessEngines.destroy();

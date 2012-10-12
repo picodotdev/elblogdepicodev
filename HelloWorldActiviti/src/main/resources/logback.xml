@@ -20,10 +20,10 @@
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
     </appender>
-    
-    <logger name="es.com.blogspot.elblogdepicodev.activiti" level="debug"/>
-	
+
+    <logger name="es.com.blogspot.elblogdepicodev.activiti" level="debug" />
+
     <root level="info">
-        <appender-ref ref="console"/>
+        <appender-ref ref="console" />
     </root>
 </configuration>

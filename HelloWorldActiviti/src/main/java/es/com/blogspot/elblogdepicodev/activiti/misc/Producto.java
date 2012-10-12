@@ -27,12 +27,12 @@ public class Producto implements Serializable {
 
 	public Long getExistencias() {
 		return existencias;
-	}	
+	}
 
 	public void setExistencias(Long existencias) {
 		this.existencias = existencias;
 	}
-	
+
 	public boolean hayExistencias() {
 		return existencias > 0;
 	}

@@ -9,7 +9,7 @@ public class ComprobarExistenciasServiceTask implements ActivityBehavior {
 	@Override
 	public void execute(ActivityExecution execution) throws Exception {
 		PvmTransition transition = null;
-		Producto producto = (Producto) execution.getVariable("producto"); 
+		Producto producto = (Producto) execution.getVariable("producto");
 		if (producto.hayExistencias()) {
 			transition = execution.getActivity().findOutgoingTransition("flowHayExistencias");
 		} else {

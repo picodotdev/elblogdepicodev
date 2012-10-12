@@ -1,45 +1,43 @@
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-        xmlns:activiti="http://activiti.org/bpmn"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd"
-        targetNamespace="HelloWorldActiviti">
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd" targetNamespace="HelloWorldActiviti">
 
     <process id="errores" name="Errores" isExecutable="true">
-        <startEvent id="start" />            
+        <startEvent id="start" />
         <sequenceFlow id="flow1" sourceRef="start" targetRef="comprobarExistenciasSubprocess" />
 
-		<subProcess id="comprobarExistenciasSubprocess">    
-			<startEvent id="subprocessStart" />
-	        <sequenceFlow id="flow11" sourceRef="subprocessStart" targetRef="comprobarExistenciasServiceTask" />
+        <subProcess id="comprobarExistenciasSubprocess">
+            <startEvent id="subprocessStart" />
+            <sequenceFlow id="flow11" sourceRef="subprocessStart" targetRef="comprobarExistenciasServiceTask" />
 
-            <serviceTask id="comprobarExistenciasServiceTask"  activiti:class="es.com.blogspot.elblogdepicodev.activiti.misc.ComprobarExistenciasServiceTask" />
-	        <sequenceFlow id="flowHayExistencias" sourceRef="comprobarExistenciasServiceTask" targetRef="subprocessEnd" />
-			<sequenceFlow id="flowNoHayExistencias" sourceRef="comprobarExistenciasServiceTask" targetRef="subprocessError" />
+            <serviceTask id="comprobarExistenciasServiceTask" activiti:class="es.com.blogspot.elblogdepicodev.activiti.misc.ComprobarExistenciasServiceTask" />
+            <sequenceFlow id="flowHayExistencias" sourceRef="comprobarExistenciasServiceTask" targetRef="subprocessEnd" />
+            <sequenceFlow id="flowNoHayExistencias" sourceRef="comprobarExistenciasServiceTask" targetRef="subprocessError" />
 
-			<endEvent id="subprocessEnd" />
-			<endEvent id="subprocessError">
-				<errorEventDefinition errorRef="noHayExistencias" />
-			</endEvent>
-		</subProcess>  
-		<sequenceFlow id="flow4" sourceRef="comprobarExistenciasSubprocess" targetRef="hayExistenciasTask" />
+            <endEvent id="subprocessEnd" />
+            <endEvent id="subprocessError">
+                <errorEventDefinition errorRef="noHayExistencias" />
+            </endEvent>
+        </subProcess>
+        <sequenceFlow id="flow4" sourceRef="comprobarExistenciasSubprocess" targetRef="hayExistenciasTask" />
 
-		<boundaryEvent id="catchNoHayExistenciasBoundaryEvent" attachedToRef="comprobarExistenciasSubprocess">
-			<errorEventDefinition errorRef="noHayExistencias"/>
-		</boundaryEvent>
-		<sequenceFlow id="flow5" sourceRef="catchNoHayExistenciasBoundaryEvent" targetRef="noHayExistenciasTask" />
+        <boundaryEvent id="catchNoHayExistenciasBoundaryEvent" attachedToRef="comprobarExistenciasSubprocess">
+            <errorEventDefinition errorRef="noHayExistencias" />
+        </boundaryEvent>
+        <sequenceFlow id="flow5" sourceRef="catchNoHayExistenciasBoundaryEvent" targetRef="noHayExistenciasTask" />
 
         <scriptTask id="hayExistenciasTask" scriptFormat="groovy">
             <script>
                 println("Hay existencias de ${producto.nombre} (${producto.existencias})")
                 producto.existencias -= 1
-            </script>            
+            </script>
         </scriptTask>
         <scriptTask id="noHayExistenciasTask" scriptFormat="groovy">
-            <script>println("No hay existencias de ${producto.nombre}")</script>            
+            <script>println("No hay existencias de ${producto.nombre}")</script>
         </scriptTask>
-		<sequenceFlow id="flow6" sourceRef="hayExistenciasTask" targetRef="end" />
-		<sequenceFlow id="flow7" sourceRef="noHayExistenciasTask" targetRef="end" />
+        <sequenceFlow id="flow6" sourceRef="hayExistenciasTask" targetRef="end" />
+        <sequenceFlow id="flow7" sourceRef="noHayExistenciasTask" targetRef="end" />
 
-        <endEvent id="end" />  
+        <endEvent id="end" />
     </process>
 </definitions>
