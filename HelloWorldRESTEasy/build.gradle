@@ -1,0 +1,60 @@
+description = 'HelloWorldRESTEasy'
+version = '0.0.1'
+
+apply plugin: 'eclipse'
+apply plugin: 'war'
+
+//Eclipse
+
+// Java
+sourceCompatibility = 1.6
+
+repositories {	
+	mavenRepo name: 'JBoss Thirdparty', url: 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases'
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.jboss.resteasy:jaxrs-api:2.3.5.Final'
+	compile 'org.jboss.resteasy:resteasy-jaxrs:2.3.5.Final'
+	compile 'org.jboss.resteasy:resteasy-jsapi:2.3.5.Final'
+
+	providedCompile 'javax.servlet:servlet-api:2.5'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.2'
+}
+
+clean << {
+	ant.delete(dir:'src/main/webapp/WEB-INF/classes')
+	ant.delete(dir:'src/main/webapp/WEB-INF/lib')
+	ant.mkdir(dir:'src/main/webapp/WEB-INF/classes')
+	ant.mkdir(dir:'src/main/webapp/WEB-INF/lib')
+}
+
+task copyClasses(dependsOn: [compileJava, processResources]) << {
+	ant.copy(todir: 'src/main/webapp/WEB-INF/classes') {
+		fileset(dir: 'build/classes/main')
+	}
+}
+
+task copyResources(dependsOn: [processResources]) << {
+	ant.copy(todir: 'src/main/webapp/WEB-INF/classes') {
+		fileset(dir: 'build/resources/main')
+	}
+}
+
+task copyLibs << {
+	ant.delete {
+		fileset(dir: 'src/main/webapp/WEB-INF/lib') {
+			include(name: '*')
+		}
+	}
+	configurations.runtime.each { File file -> 
+		ant.copy(todir: 'src/main/webapp/WEB-INF/lib', file: file)
+	}
+}
+
+task copyAll(dependsOn: [copyClasses, copyLibs]) << {
+}
