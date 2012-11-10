@@ -5,8 +5,10 @@
 </head>
 <body>
     <script type="text/javascript">
-        alert(HelloWorldResourceImpl.getSaluda());
-        alert(HelloWorldResourceImpl.getSaludaA({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getSaluda());
+        alert(HelloWorldResource.getSaludaA({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getMensajeJSON({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getMensajeXML({nombre:'picodotdev'}));
     </script>
 </body>
 </html>

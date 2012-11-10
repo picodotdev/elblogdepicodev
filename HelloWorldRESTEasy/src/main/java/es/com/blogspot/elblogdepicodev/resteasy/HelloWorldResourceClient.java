@@ -13,12 +13,24 @@ public class HelloWorldResourceClient implements HelloWorldResource {
 		client = ProxyFactory.create(HelloWorldResource.class, "http://localhost:8080/helloworld-resteasy/rest");
 	}
 	
+	@Override
 	public String getSaluda() {
 		return client.getSaluda();
 	}
 
+	@Override
 	public String getSaludaA(String nombre) {
 		return client.getSaludaA(nombre);
+	}
+	
+	@Override
+	public Mensaje getMensajeJSON(String nombre) {
+		return client.getMensajeJSON(nombre);
+	}
+	
+	@Override
+	public Mensaje getMensajeXML(String nombre) {
+		return client.getMensajeXML(nombre);
 	}
 
 	public static void main(String[] args) {
@@ -28,5 +40,7 @@ public class HelloWorldResourceClient implements HelloWorldResource {
 		HelloWorldResourceClient client = new HelloWorldResourceClient();
 		System.out.println(client.getSaluda());
 		System.out.println(client.getSaludaA("picodotdev"));
+		System.out.println(client.getMensajeJSON("picodotdev"));
+		System.out.println(client.getMensajeXML("picodotdev"));
 	}
 }
