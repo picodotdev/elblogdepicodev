@@ -4,8 +4,6 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.ws.rs.PathParam;
-
 public class HelloWorldResourceImpl implements HelloWorldResource {
 
 	@Override
@@ -14,17 +12,17 @@ public class HelloWorldResourceImpl implements HelloWorldResource {
 	}
 	
 	@Override
-	public String getSaludaA(@PathParam("nombre") String nombre) {
+	public String getSaludaA(String nombre) {
 		return MessageFormat.format("¡Hola {0}!", nombre);
 	}
 	
 	@Override
-	public Mensaje getMensajeJSON(@PathParam("nombre") String nombre) {
+	public Mensaje getMensajeJSON(String nombre) {
 		return buildMensaje(nombre);
 	}
 	
 	@Override
-	public Mensaje getMensajeXML(@PathParam("nombre") String nombre) {
+	public Mensaje getMensajeXML(String nombre) {
 		return buildMensaje(nombre);
 	}
 	
