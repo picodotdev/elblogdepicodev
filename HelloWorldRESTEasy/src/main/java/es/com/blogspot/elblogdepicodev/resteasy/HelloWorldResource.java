@@ -18,12 +18,12 @@ public interface HelloWorldResource {
 	public String getSaludaA(@PathParam("nombre") String nombre);
 	
 	@GET
-	@Path("/mensaje/{nombre}.json")
+	@Path("/mensaje/{nombre}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Mensaje getMensajeJSON(@PathParam("nombre") String nombre);
 	
 	@GET
-	@Path("/mensaje/{nombre}.xml")
+	@Path("/mensaje/{nombre}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Mensaje getMensajeXML(@PathParam("nombre") String nombre);
 }
