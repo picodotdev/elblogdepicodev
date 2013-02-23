@@ -4,10 +4,8 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-@Path("/helloworld")
 public class HelloWorldResourceImpl implements HelloWorldResource {
 
 	@Override
