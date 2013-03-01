@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<meta name="author" content="pico.dev"/>
+	<meta name="description" content="Aplicacion de ejemplo de Apache Tapestry 5 integrado con RESTEasy"/>
+	<title>Aplicación de ejemplo de Apache Tapestry 5 integrado con RESTEasy</title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu&amp;v1' rel='stylesheet' type='text/css'/>
+	<style type="text/css">
+		body {
+			font-family: 'Ubuntu', arial, serif;
+			font-size: 12px;
+		}
+	</style>
+	<script type="text/javascript" src="rest-jsapi"></script>
+</head>
+<body>
+    <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+    Versión: <b>${tapestryVersion}</b><br/>
+    <br/>
+	
+    <b><t:holaMundo/></b>
+    <br/>
+    <br/>
+    <script type="text/javascript">
+        alert(HelloWorldResource.getSaluda());
+        alert(HelloWorldResource.getSaludaA({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getMensajeJSON({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getMensajeXML({nombre:'picodotdev'}));
+        alert(HelloWorldResource.getCuenta());
+    </script>    
+</body>
+</html>
