@@ -5,9 +5,6 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'war'
 
-// Java
-sourceCompatibility = 1.6
-
 repositories {	
 	flatDir name: 'Local', dirs: 'misc/lib'
 	mavenRepo name: 'JBoss Thirdparty', url: 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases'
