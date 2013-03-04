@@ -87,6 +87,7 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 			// Petición de clientes javascript
 			String uri = request.getRequestURL().toString();
 			uri = uri.substring(0, uri.length() - request.getServletPath().length());
+			response.setContentType("text/javascript");
 			apiWriter.writeJavaScript(uri, request, response, serviceRegistry);
 			return true;				
 		} else if (restFilterPattern.matcher(path).matches()) {
