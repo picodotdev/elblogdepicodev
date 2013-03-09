@@ -26,8 +26,8 @@ public class AppModule {
 		configuration.add(SymbolConstants.SUPPORTED_LOCALES, "es");
 	}
 	
-	public static void contributeServiceOverride(MappedConfiguration<Class, Object> cfg, @InjectService("CustomComponentRequestSelectorAnalyzer") ComponentRequestSelectorAnalyzer analyzer) {
-		cfg.add(ComponentRequestSelectorAnalyzer.class, analyzer);
+	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @InjectService("CustomComponentRequestSelectorAnalyzer") ComponentRequestSelectorAnalyzer analyzer) {
+		configuration.add(ComponentRequestSelectorAnalyzer.class, analyzer);
 	}
 
 	public static Object decorateComponentResourceLocator(ComponentResourceLocator delegate, @ContextProvider AssetFactory assetFactory,
