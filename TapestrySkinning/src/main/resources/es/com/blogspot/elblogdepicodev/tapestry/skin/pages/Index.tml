@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<meta name="author" content="pico.dev"/>
+	<meta name="description" content="Aplicacion de ejemplo de Apache Tapestry 5 sobre como cambiar el aspecto de una web en función de algunas variables"/>
+	<title>Aplicacion de ejemplo de Apache Tapestry 5 sobre como cambiar el aspecto de una web en función de algunas variables</title>
+	<link href="http://fonts.googleapis.com/css?family=Ubuntu&amp;v1" rel="stylesheet" type="text/css"/>
+	<style type="text/css">
+		body {
+			font-family: 'Ubuntu', arial, serif;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+    <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+    Versión: <b>${tapestryVersion}</b><br/>
+    <br/>
+	
+    <b><t:holaMundo/></b>
+</body>
+</html>
