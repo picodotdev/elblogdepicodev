@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<meta name="author" content="pico.dev"/>
+	<meta name="description" content="Aplicación de ejemplo de pruebas unitarias y de integración con Apache Tapestry"/>
+	<title>Aplicación de ejemplo de pruebas unitarias y de integración con Apache Tapestry</title>
+	<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;v1" rel="stylesheet"/>
+	<link type="text/css" href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+	<style type="text/css">
+		body {
+			font-family: 'Ubuntu', arial, serif;
+		}
+	</style>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span4">
+            <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+            Versión: <b>${tapestryVersion}</b>
+        </div>
+        <div class="span4"></div>
+    </div>
+    
+    <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span4">
+            <t:holaMundo/>
+        </div>
+        <div class="span4"></div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span4">
+            <span id="id1">Hello World!</span>
+        </div>
+        <div class="span4"></div>
+    </div>    
+</body>
+</html>

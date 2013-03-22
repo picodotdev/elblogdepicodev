@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head></head>
+<body>
+    <div id="componenteSinNombre"><t:holaMundo/></div>
+    <div id="componenteConNombre"><t:holaMundo nombre="nombre"/></div>
+</body>
+</html>

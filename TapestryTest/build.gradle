@@ -1,0 +1,84 @@
+description = 'TapestryTest'
+version = '0.0.1'
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'tomcat'
+
+[tomcatRun, tomcatStop]*.stopKey = 'stopKey'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.7'
+    }
+}
+
+repositories {	
+    mavenCentral()
+}
+
+configurations {
+	testCompile.exclude module: 'testng'
+}
+
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:1.8.6'
+
+	compile 'org.apache.tapestry:tapestry5-annotations:5.3.6'
+	compile 'org.apache.tapestry:tapestry-core:5.3.6'
+
+	providedCompile 'javax.servlet:servlet-api:2.5'
+
+	// Unit testing
+	testCompile 'org.apache.tapestry:tapestry-test:5.3.6'
+	testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
+	testCompile 'net.sourceforge.tapestryxpath:tapestry-xpath:1.0.1'
+	testCompile 'junit:junit:4.11'
+ 
+	// Integration testing
+    testCompile 'org.codehaus.geb:geb-spock:0.7.2'
+    testCompile 'org.spockframework:spock-core:0.6-groovy-1.8' 
+    testCompile 'org.codehaus.geb:geb-junit4:0.7.2'
+
+	// Tomcat
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:7.0.37'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.37'
+    tomcat('org.apache.tomcat.embed:tomcat-embed-jasper:7.0.37') {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+ 
+    testRuntime 'org.seleniumhq.selenium:selenium-support:2.15.0'
+}
+
+test {
+    exclude '**/*IntegrationTest.*'
+    exclude '**/*Spec.*'
+}
+
+tomcatRun {
+	outputFile = file('build/tmp/tomcat.log')
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.4'
+}
+
+task integrationTest(type: Test) {
+    include '**/*IntegrationTest.*'
+    include '**/*Spec.*'
+
+    doFirst {
+        tomcatRun.daemon = true
+        tomcatRun.execute()
+    }
+
+    doLast {
+        tomcatStop.execute()
+    }
+}
