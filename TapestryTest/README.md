@@ -39,4 +39,5 @@ Para ejecutar la aplicación ejecutar:
 
 ./gradlew tomcatRun
 
-...y abrir [http://localhost:8080/TapestryTest] en el navegador.
+...y abrir [http://localhost:8080/TapestryTest/Index](http://localhost:8080/TapestryTest/Index)
+en el navegador.
