@@ -15,7 +15,7 @@ Si además del código Java se quiere probar el código HTML generado por un com
 La prueba HolaMundoWithTesterTest muestra este caso usando
 [tapestry-testify](http://tapestrytestify.sourceforge.net/). Para facilitar la búsqueda de elementos 
 en el objeto [Document](http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/dom/Document.html) devuelto
-por el método [PageTester.renderPage](http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/test/PageTester.html#renderPage(java.lang.String))
+por el método [PageTester.renderPage](http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/test/PageTester.html#renderPage(java.lang.String)
 se puede utilizar [tapestry-xpath](http://tapestryxpath.sourceforge.net/) que permite usar 
 expresiones xpath al hacer las búsquedas.
 
