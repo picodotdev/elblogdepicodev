@@ -7,7 +7,7 @@ framework [Apache Tapestry](http://tapestry.apache.org/).
 Las pruebas unitarias de los componentes y páginas de Apache Tapestry pueden realizarse de varias
 formas. Dado que los componentes y páginas son POJOs puede probarse el código Java de los mismos
 con teses de JUnit e inyectando los objetos con los que trabaje el componente. Los
-mocks inyectados pueden ser creados con la librería [Mockito](https://code.google.com/p/mockito/). La prueba
+mocks a inyectar pueden ser creados con la librería [Mockito](https://code.google.com/p/mockito/). La prueba
 HolaMundoTest muestra este caso. 
 
 Si además del código Java se quiere probar el código HTML generado por un componente o página se ha de utilizar
