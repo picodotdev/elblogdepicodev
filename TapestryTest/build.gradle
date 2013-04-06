@@ -14,6 +14,7 @@ buildscript {
         mavenCentral()
     }
 
+    // Añadir el plugin de Tomcat
     dependencies {
         classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.7'
     }
@@ -40,6 +41,7 @@ dependencies {
 	testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
 	testCompile 'net.sourceforge.tapestryxpath:tapestry-xpath:1.0.1'
 	testCompile 'junit:junit:4.11'
+	testCompile 'org.mockito:mockito-all:1.9.5'
  
 	// Integration testing
     testCompile 'org.codehaus.geb:geb-spock:0.7.2'
@@ -57,6 +59,7 @@ dependencies {
 }
 
 test {
+    // Excluir de los teses unitarios los teses de integración
     exclude '**/*IntegrationTest.*'
     exclude '**/*Spec.*'
 }
@@ -66,18 +69,21 @@ tomcatRun {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.4'
+	gradleVersion = '1.5'
 }
 
 task integrationTest(type: Test) {
+    // Incluir los teses de integración
     include '**/*IntegrationTest.*'
     include '**/*Spec.*'
 
+    // Antes de ejecutar las pruebas de integración iniciar el servidor de aplicaciones
     doFirst {
         tomcatRun.daemon = true
         tomcatRun.execute()
     }
 
+    // Después de terminar las pruebas parar el servidor de aplicaciones
     doLast {
         tomcatStop.execute()
     }

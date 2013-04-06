@@ -17,6 +17,6 @@ class IndexSpec extends GebSpec {
         to IndexPage
 
         then:
-		id.text() == 'Hello World!'
+		id.text() == 'Hola mundo Tapestry!!!'
    }
 }

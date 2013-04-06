@@ -33,7 +33,7 @@
     <div class="row-fluid">
         <div class="span4"></div>
         <div class="span4">
-            <span id="id1">Hello World!</span>
+            <span id="id1"><t:holaMundo/></span>
         </div>
         <div class="span4"></div>
     </div>    
