@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Hello World Backbone</title>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/require.js" data-main="js/main"></script>
+	<script type="text/javascript">
+		requirejs.config({
+    			shim: {
+					'underscore': {
+						exports: '_'
+					},
+        			'backbone': {
+            				deps: ['underscore'],
+            				exports: 'Backbone'
+        			}
+		        }
+		});
+	</script>
+</head>
+<body>
+	<div style="margin: 0 auto; width: 980px;">
+    	<div class="row">
+    	    <div class="span3"></div>
+			<div class="span6"><img src="img/backbone.png"></div>
+    	    <div class="span3"></div>
+		</div>
+    	<div class="row" style="margin-top: 2em">
+    	    <div class="span3"></div>
+    	    <div class="span6">
+				<div id="area">
+					<label for="alto">Alto</label>
+					<input id="alto" name="alto" value="">
+
+					<label for="ancho">Ancho</label>
+					<input id="ancho" name="ancho" value="">
+
+					<div id="resultado" style="margin-top: 2em"></div>
+				</div>
+    	    </div>
+    	    <div class="span3"></div>
+    	</div>
+	</div>
+</body>
+</html>
