@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<meta name="author" content="pico.dev"/>
+	<meta name="description" content="Aplicacion de ejemplo de Apache Tapestry 5 integrado con RESTEasy"/>
+	<title>Aplicación de ejemplo de Backbone.js haciendo uso de un servicio web REST</title>
+	<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;v1" rel="stylesheet"/>
+	<link type="text/css" href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+	<script type="text/javascript" src="js/require.js" data-main="js/main"></script>
+    <script type="text/javascript">
+        requirejs.config({
+            shim: {
+                'underscore': {
+                    exports: '_'
+                },
+                'backbone': {
+                    deps: ['underscore'],
+                    exports: 'Backbone'
+                }
+            }
+        });
+    </script>
+	<style type="text/css">
+		body {
+			font-family: 'Ubuntu', arial, serif;
+		}
+		
+		li.tarea span.completada {
+            text-decoration: line-through;;
+		}
+		
+		#estado {
+		  margin-bottom: 1em;
+		}		
+	</style>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span4">
+            <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+            <img src="${context:images/backbone.png}" alt="Backbone.js" title="Backbone.js" width="350"/><br/>
+            Versión: <b>${tapestryVersion}</b><br/>
+            <t:holaMundo/>
+        </div>
+        <div class="span4"></div>
+    </div>
+    
+    <div class="row-fluid" style="margin-top: 20px">
+        <div class="span4"></div>
+        <div class="span4">
+            <div id="tareas"></div>
+        </div>
+        <div class="span4"></div>
+    </div>
+
+    <!-- Plantillas -->
+    <script id="tareas-template" type="text/template">
+        <![CDATA[
+            <input type="text" name="nuevaTarea" value="" class="input-xxlarge" placeholder="Introduce una nueva tarea"/>
+            <ul id="lista-tareas" class="unstyled"></ul>
+            <div id="estado"></div>
+            <input type="button" name="limpiar" value="Limpiar" class="btn"/>
+        ]]>
+    </script>
+    <script id="tarea-template" type="text/template">
+        <![CDATA[
+            <label class="checkbox">
+                <input id="{{id}}" type="checkbox" name="completada" {{attrs.checked}}/> <span class="{{attrs.completada}}">{{descripcion}}</span>
+            </label>             
+        ]]>
+    </script>
+    <script id="estado-template" type="text/template">
+        <![CDATA[
+            {{#total}}
+                {{completadas}} tareas de {{total}} completadas
+            {{/total}}
+            {{^total}}
+                ¡Muy bien! has completado todas las tareas
+            {{/total}}
+        ]]>
+    </script>
+    <!-- Datos iniciales -->
+    <!--
+        Incluir los datos en la misma página para evitar una petición, tiene la ventaja
+        de que evita una petición pero la desventaja de que impide cachear la página.
+    -->
+    <!--        
+    <script type="text/javascript" >
+        var tareas = ${tareasJSON};
+    </script>
+    -->
+</body>
+</html>
