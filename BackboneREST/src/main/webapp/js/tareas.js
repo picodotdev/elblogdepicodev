@@ -131,15 +131,18 @@ define('tareas', ['jquery', 'underscore', 'backbone', 'mustache'], function($, _
     	},
     	// Eventos
     	onKeypressNuevaTarea: function(event) {
+    		// Comprobar si la tecla pulsada es el return
     		if (event.which == 13) {
     			var input = $("input[name='nuevaTarea']", this.el);
     			var descripcion = input.val();
     			descripcion = trim(descripcion);
 
+    			// Comprobar si se ha introducido descripción de la tarea
     			if (descripcion == '') {
     				return;
     			}
     			
+    			// Añadir la tarea y limpiar el input 
     			var tarea = new Tarea({ descripcion: descripcion, completada: false });
     			this.addTarea(tarea);
     			input.val('');
