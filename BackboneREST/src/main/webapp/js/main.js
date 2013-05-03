@@ -1,6 +1,6 @@
 define(['tareas'], function(tareas) {	
 	var tareasApp = new tareas.TareasApp({el: '#tareas'});
-	
+
 	// Cargar los datos iniciales de la lista de tareas
 	// Usar los datos precargados en la página, para evitar una petición
 	// al servidor, los datos se incluyen en la página html de la aplicación.

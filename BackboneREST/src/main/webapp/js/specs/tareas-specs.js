@@ -54,20 +54,14 @@ define(['jquery', 'jasmine-html', 'sinon', 'tareas'], function($, jasmine, sinon
 			});
 		});
 		describe('vistas', function() {
-			var xhr;
-			var	requests;
+			var server;
 		
 			beforeEach(function() {
-				xhr = sinon.useFakeXMLHttpRequest();
-				requests = [];
-			
-				xhr.onCreate = function (xhr) {
-					requests.push(xhr);
-				};
+				server = sinon.fakeServer.create();
 			});
-		
+			
 			afterEach(function() {
-				xhr.restore();
+				server.restore();
 			});
 			
 			describe('tareas', function() {
@@ -79,7 +73,7 @@ define(['jquery', 'jasmine-html', 'sinon', 'tareas'], function($, jasmine, sinon
 					input.trigger('change');
 				
 					expect(tareaNoCompletada.get('completada')).toBeTruthy();
-					expect(1).toEqual(requests.length);
+					expect(1).toEqual(server.requests.length);
 				});
 				it('marcar como no completada', function() {
 					var vista = new tareas.TareaView({model: tareaCompletada});
@@ -89,7 +83,7 @@ define(['jquery', 'jasmine-html', 'sinon', 'tareas'], function($, jasmine, sinon
 					input.trigger('change');
 				
 					expect(tareaCompletada.get('completada')).toBeFalsy();
-					expect(1).toEqual(requests.length);
+					expect(1).toEqual(server.requests.length);
 				});
 			});
 			describe('tareasapp', function() {
@@ -120,13 +114,14 @@ define(['jquery', 'jasmine-html', 'sinon', 'tareas'], function($, jasmine, sinon
 
 					expect(1).toEqual($('#lista-tareas', vista.el).children().length);
 					expect('').toEqual(input.val());
+					expect(1).toEqual(server.requests.length);
 				});
 				it('limpiar tareas completadas', function() {
 					vista.resetTareas([tareaNoCompletada, tareaCompletada]);
 					
 					var input = $("input[name='limpiar']", vista.el);									
-					input.trigger('click');					
-					
+					input.trigger('click');		
+
 					expect('disabled').toEqual(input.attr('disabled'));
 					expect(1).toEqual($('#lista-tareas', vista.el).children().length);
 				});
