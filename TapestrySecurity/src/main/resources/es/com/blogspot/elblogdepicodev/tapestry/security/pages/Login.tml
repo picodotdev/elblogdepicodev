@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html t:type="layout"
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" 
+        xmlns:p="tapestry:parameter">
+
+<t:form t:id="loginForm" clientValidation="none">
+    <t:errors class="literal:alert alert-error"/>
+
+    <t:label for="usuario"/>
+    <input t:type="TextField" t:id="usuario" t:validate="required,minlength=3" size="30"/>
+
+    <t:label for="password"/>
+    <input t:type="PasswordField" t:id="password" t:validate="required,minlength=3" size="30"/>
+
+    <p><input type="submit" class="btn btn-primary" value="Iniciar sesión"/></p>
+</t:form>
+
+<table class="table table-striped table-bordered table-condensed">
+    <caption class="text-left"><strong>Usuarios y passwords</strong></caption>
+    <thead>
+        <tr>
+            <td><strong>Usuario</strong></td>
+            <td><strong>Contraseña</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>user</td>
+            <td>password</td>
+        </tr>
+        <tr>
+            <td>superuser</td>
+            <td>password</td>
+        </tr>
+        <tr>
+            <td>root</td>
+            <td>password</td>
+        </tr>
+    </tbody>
+</table>
+
+</html>

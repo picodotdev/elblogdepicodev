@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+    <meta name="author" content="pico.dev"/>
+    <meta name="description" content="Ejemplo sobre como aplicar seguridad en una aplicación Apache Tapestry 5"/>
+    <title>Ejemplo sobre como aplicar seguridad en una aplicación Apache Tapestry 5</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400" rel="stylesheet" type="text/css"/>
+    <link type="text/css" href="${context:bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <style type="text/css">
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            width: 960px;
+            margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span8">
+            <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+            
+            <t:body/>
+        </div>
+        <div class="span2"></div>
+    </div>
+</body>
+</html>

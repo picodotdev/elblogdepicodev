@@ -1,0 +1,47 @@
+description = 'TapestrySecurity'
+version = '0.0.1'
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'tomcat'
+
+[tomcatRun, tomcatStop]*.stopKey = 'stopKey'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.8'
+    }
+}
+
+repositories {	
+	flatDir name: 'Local', dirs: 'misc/lib'
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.apache.tapestry:tapestry5-annotations:5.3.7'
+	compile 'org.apache.tapestry:tapestry-core:5.3.7'
+	
+	compile('org.tynamo:tapestry-security:0.5.1') {
+	   exclude(group: 'org.apache.shiro')
+	}
+	compile 'org.apache.shiro:shiro-all:1.2.1'
+
+    providedCompile 'javax.servlet:servlet-api:2.5'
+
+ 	// Tomcat
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:7.0.39'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.39'
+    tomcat('org.apache.tomcat.embed:tomcat-embed-jasper:7.0.39') {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.6'
+}

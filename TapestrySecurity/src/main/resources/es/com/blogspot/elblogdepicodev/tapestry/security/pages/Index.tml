@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html t:type="layout"
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" 
+        xmlns:p="tapestry:parameter">
+
+Versión: <b>${tapestryVersion}</b><br/>
+<t:holaMundo/><br/>
+<br/>
+Hola <b>${subject.principal}</b> ¿ke ase?,<br/>
+<br/>
+La cuenta es ${cuenta}.<br/>
+<br/>
+<ul style="list-style: none;">
+    <li><t:actionlink t:id="add1">¿quieres sumar 1 a la cuenta? (requiere rol user)</t:actionlink></li>
+    <t:security.haspermission permission="cuenta:add2">
+        <li><t:actionlink t:id="add2">¿quieres sumar 2 a la cuenta? (requiere rol superuser)</t:actionlink></li>
+    </t:security.haspermission>
+    <t:security.hasrole role="root">
+        <li><t:actionlink t:id="add3">¿quieres sumar 3 a la cuenta? (requiere rol root)</t:actionlink></li>
+    </t:security.hasrole>
+    <t:security.haspermission permission="cuenta:substract1">
+        <li><t:actionlink t:id="substract1">¿quieres restar 1 a la cuenta? (requiere permisio substract, para visualizarse)</t:actionlink></li>
+    </t:security.haspermission>
+    <li><t:actionlink t:id="reset">¿quieres poner la cuenta a 0? (requiere permiso cuenta:reset)</t:actionlink></li>
+    <li><t:actionlink t:id="closeSesion">¿quieres cerrar la sesión?</t:actionlink></li>
+</ul>
+    
+</html>
