@@ -11,7 +11,7 @@ Hola <b>${subject.principal}</b> ¿ke ase?,<br/>
 La cuenta es ${cuenta}.<br/>
 <br/>
 <ul style="list-style: none;">
-    <li><t:actionlink t:id="add1">¿quieres sumar 1 a la cuenta? (requiere usuario)</t:actionlink></li>
+    <li><t:actionlink t:id="add1">¿quieres sumar 1 a la cuenta? (requiere un usuario)</t:actionlink></li>
     <t:security.haspermission permission="cuenta:add2">
         <li><t:actionlink t:id="add2">¿quieres sumar 2 a la cuenta? (requiere rol superuser)</t:actionlink></li>
     </t:security.haspermission>
