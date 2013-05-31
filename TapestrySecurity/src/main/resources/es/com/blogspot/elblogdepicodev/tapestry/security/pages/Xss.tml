@@ -13,7 +13,7 @@ Versión: <b>${tapestryVersion}</b><br/>
     <t:label for="dato"/>
     <input t:type="TextField" t:id="dato"/>    
 
-    <p><input type="submit" class="btn btn-primary" value="Enviár dato"/></p>
+    <p><input type="submit" class="btn btn-primary" value="Enviar dato"/></p>
     
     <p>
         Introduce<br/>
