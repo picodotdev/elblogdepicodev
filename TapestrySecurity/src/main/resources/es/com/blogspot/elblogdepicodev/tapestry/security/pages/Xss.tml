@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html t:type="layout"
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" 
+        xmlns:p="tapestry:parameter">
+
+Versión: <b>${tapestryVersion}</b><br/>
+<t:holaMundo/><br/>
+<br/>
+
+<t:form t:id="form" clientValidation="none">
+    <t:errors class="literal:alert alert-error"/>
+
+    <t:label for="dato"/>
+    <input t:type="TextField" t:id="dato"/>    
+
+    <p><input type="submit" class="btn btn-primary" value="Enviár dato"/></p>
+    
+    <p>
+        Introduce<br/>
+        &lt;script type="text/javascript"&gt;alert('Prueba de fallo de seguridad XSS');&lt;/script&gt;
+    </p>
+</t:form>
+
+<p>
+    Dato filtrado (expansión):<br/>
+    ${dato}
+</p>
+
+<p>
+    Dato filtrado (filtrado):<br/>
+    <t:output value="datos" format="prop:format"/>
+</p>
+
+<t:outputRaw value="dato" filter="false"/>
+</html>

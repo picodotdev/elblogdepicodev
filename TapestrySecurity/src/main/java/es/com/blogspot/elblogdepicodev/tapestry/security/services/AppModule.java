@@ -46,6 +46,6 @@ public class AppModule {
 
 	public static void contributeSecurityConfiguration(Configuration<SecurityFilterChain> configuration, SecurityFilterChainFactory factory) {
 		configuration.add(factory.createChainWithRegEx("^*/login*$").add(factory.anon()).build());
-		configuration.add(factory.createChainWithRegEx("^*/index*$").add(factory.authc()).build());
+		configuration.add(factory.createChainWithRegEx("^*/index*$").add(factory.user()).build());
 	}
 }
