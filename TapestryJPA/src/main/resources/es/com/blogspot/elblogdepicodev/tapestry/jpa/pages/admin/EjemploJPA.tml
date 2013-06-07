@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html t:type="layout"
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" 
+        xmlns:p="tapestry:parameter">
+
+Versión: <b>${tapestryVersion}</b><br/>
+<t:holaMundo/><br/>
+
+<h1>Lista de productos</h1>
+<t:grid source="productos" row="producto" model="model" lean="true" inPlace="true" class="table table-bordered table-condensed">
+    <p:nombreCell>
+        ${producto.nombre}
+    </p:nombreCell>
+    <p:actionCell>
+        <t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink>
+    </p:actionCell>
+    <p:empty>
+        <p>No hay productos.</p>
+    </p:empty>
+</t:grid>
+<t:eventlink event="nuevo" class="btn btn-primary">Nuevo producto</t:eventlink>
+
+</html>
