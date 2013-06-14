@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html t:type="layout"
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" 
+        xmlns:p="tapestry:parameter">
+
+Versión: <b>${tapestryVersion}</b><br/>
+<t:holaMundo/><br/>
+
+<t:delegate to="block"/>
+
+<t:block id="listaBlock">
+    <h1>Lista de productos</h1>
+    <t:grid source="source" row="producto" model="model" rowsPerPage="2" lean="true" inPlace="true" class="table table-bordered table-condensed">
+        <p:nombreCell>
+            <t:eventlink event="editar" context="producto.id">${producto.nombre}</t:eventlink>
+        </p:nombreCell>
+        <p:actionCell>
+            <t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink>
+        </p:actionCell>
+        <p:empty>
+            <p>No hay productos.</p>
+        </p:empty>
+    </t:grid>
+    <t:eventlink event="nuevo" class="btn btn-primary">Nuevo producto</t:eventlink>
+    <t:if test="hasProductos()"><t:eventlink event="eliminarTodos" class="btn btn-danger">Eliminar todos</t:eventlink></t:if>    
+</t:block>
+
+<t:block id="edicionBlock">
+    <t:remove>
+        En otros frameworks la lógica para obtener el título del bloque según se trate de un alta o una modificación,
+        probablemente se hiciese metiendo lógica en la plantilla de presentación, dado que Tapestry permite llamar a métodos
+        de la clase Java asociada al componente es mejor dejar esa lógica en el código Java de esta manera la plantilla será más 
+        sencilla y clara además de aprovecharnos del compilador. labels es un método definido en la página admin.producto
+        que devuelve un mapa.
+    </t:remove>
+    <h1>${labels.get('titulo')}</h1>
+    <t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="form-horizontal">
+        <t:errors class="literal:alert alert-error"/>
+
+        <div class="control-group">
+            <t:label for="nombre" class="control-label"/>
+            <div class="controls">
+                <input t:type="textfield" t:id="nombre" value="producto.nombre" size="100" label="Nombre"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <t:label for="descripcion" class="control-label"/>
+            <div class="controls">
+                <input t:type="textarea" t:id="descripcion" value="producto.descripcion" label="Descripción"/>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <t:label for="cantidad" class="control-label"/>
+            <div class="controls">
+                <input t:type="textfield" t:id="cantidad" value="producto.cantidad" size="4" label="Cantidad"/>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <t:label for="fecha" class="control-label"/>
+            <div class="controls">
+                <input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha"/>
+            </div>
+       </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')"/>
+                <t:if test="producto.id"><t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink></t:if>
+                <input t:type="submit" class="btn" value="Cancelar" mode="cancel"/>
+            </div>
+        </div>
+    </t:form>
+</t:block>
+
+</html>
