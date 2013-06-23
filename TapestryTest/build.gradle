@@ -31,13 +31,13 @@ configurations {
 dependencies {
 	compile 'org.codehaus.groovy:groovy-all:1.8.6'
 
-	compile 'org.apache.tapestry:tapestry5-annotations:5.3.6'
-	compile 'org.apache.tapestry:tapestry-core:5.3.6'
+	compile 'org.apache.tapestry:tapestry5-annotations:5.3.7'
+	compile 'org.apache.tapestry:tapestry-core:5.3.7'
 
 	providedCompile 'javax.servlet:servlet-api:2.5'
 
 	// Unit testing
-	testCompile 'org.apache.tapestry:tapestry-test:5.3.6'
+	testCompile 'org.apache.tapestry:tapestry-test:5.3.7'
 	testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
 	testCompile 'net.sourceforge.tapestryxpath:tapestry-xpath:1.0.1'
 	testCompile 'junit:junit:4.11'
