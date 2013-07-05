@@ -18,6 +18,7 @@ import org.apache.tapestry5.grid.GridDataSource;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.BeanModelSource;
+import org.apache.tapestry5.services.HttpError;
 import org.apache.tapestry5.services.TranslatorSource;
 
 import es.com.blogspot.elblogdepicodev.tapestry.jpa.dao.ProductoDAO;
