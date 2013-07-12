@@ -48,9 +48,10 @@ public class EjemploJPA {
 		return model;
 	}
 	
-	void onNuevo() {
+	void onNuevo() throws Exception {
 		Producto producto = new Producto(UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1l, new Date());
 		dao.persist(producto);
+		throw new Exception();
 	}
 	
 	void onEliminar(Long id) {		
