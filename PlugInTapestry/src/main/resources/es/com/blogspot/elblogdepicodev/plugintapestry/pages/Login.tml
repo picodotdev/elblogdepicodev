@@ -1,0 +1,30 @@
+<html t:type="layout" t:titulo="Inicio de sesión" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd" xmlns:p="tapestry:parameter">
+
+<div class="text-center">
+<img src="${context:images/tapestry.png}" alt="Apache Tapestry" title="Apache Tapestry" />
+<t:form t:id="form" clientValidation="none">
+	<t:errors class="literal:alert alert-error" />
+
+	<div class="control-group">
+		<t:label for="usuario" />
+		<div class="controls">
+			<input t:type="TextField" t:id="usuario" t:validate="required,minlength=3" size="30" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<t:label for="password" />
+		<div class="controls">
+			<input t:type="PasswordField" t:id="password" t:validate="required,minlength=3" size="30" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-primary" value="Iniciar sesión" />
+		</div>
+	</div>
+</t:form>
+</div>
+
+</html>
