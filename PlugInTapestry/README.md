@@ -5,8 +5,7 @@ Puedes probar los ejemplos muy fácilmente y sin necesidad de instalar nada prev
 
 Utiliza los siguientes comandos para probarlos en tu equipo.
 
-Windows
-=======
+### Windows
 <pre><code>
 git clone git://github.com/picodotdev/elblogdepicodev.git 
 # Si no se dispone de git, descargar el zip con el repositorio completo y descomprimir 
@@ -15,8 +14,7 @@ cd elblogdepicodev/PlugInTapestry/
 # Abrir en el navegador con la URL indicada al final de la terminal
 </code></pre>
 
-Linux / Mac
-===========
+### Linux / Mac
 <pre><code>
 git clone git://github.com/picodotdev/elblogdepicodev.git 
 # Si no se dispone de git, descargar el zip con el repositorio completo y descomprimir 
