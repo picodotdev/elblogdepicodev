@@ -23,5 +23,8 @@ cd elblogdepicodev/PlugInTapestry/
 # Abrir en el navegador con la URL indicada al final de la terminal
 </code></pre>
 
+#### Mensajes del inicio del servidor de aplicaciones
 ![Inicio servidor de aplicaciones](/misc/inicio-rapido-5.png)
+
+#### Captura de la aplicación funcionando
 ![Inicio servidor de aplicaciones](/misc/PlugInTapestry.png)
