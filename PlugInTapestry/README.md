@@ -1,7 +1,9 @@
 Esta es la aplicación con el código fuente completo de los ejemplos del libro [PlugIn Tapestry](http://goo.gl/WFQgY).
 
 Puedes probar los ejemplos muy fácilmente y sin necesidad de instalar nada previamente en tu equipo 
-(salvo git y ni eso ya que puedes descargar el [siguiente zip con todo el código del repositorio](https://github.com/picodotdev/elblogdepicodev/archive/master.zip)): 
+(salvo git y ni eso ya que puedes descargar el [siguiente zip con todo el código del repositorio](https://github.com/picodotdev/elblogdepicodev/archive/master.zip)). 
+
+Utiliza los siguientes comandos para probarlos en tu equipo.
 
 Windows
 =======
