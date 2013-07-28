@@ -24,3 +24,4 @@ cd elblogdepicodev/PlugInTapestry/
 </code></pre>
 
 ![Inicio servidor de aplicaciones](/misc/inicio-rapido-5.png)
+![Inicio servidor de aplicaciones](/misc/PlugInTapestry.png)
