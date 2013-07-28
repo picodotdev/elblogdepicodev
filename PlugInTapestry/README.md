@@ -18,7 +18,7 @@ cd elblogdepicodev/PlugInTapestry/
 <pre><code>
 git clone git://github.com/picodotdev/elblogdepicodev.git 
 # Si no se dispone de git, descargar el zip con el repositorio completo y descomprimir 
-cd elblogdepicodev/PlugInTapestry/[ejemplo] 
+cd elblogdepicodev/PlugInTapestry/ 
 ./gradlew tomcatRun 
 # Abrir en el navegador con la URL indicada al final de la terminal
 </code></pre>
