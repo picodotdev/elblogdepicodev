@@ -21,4 +21,6 @@ git clone git://github.com/picodotdev/elblogdepicodev.git
 cd elblogdepicodev/PlugInTapestry/[ejemplo] 
 ./gradlew tomcatRun 
 # Abrir en el navegador con la URL indicada al final de la terminal
-</code></pre>  
+</code></pre>
+
+![Inicio servidor de aplicaciones](/misc/inicio-rapido-5.png)
