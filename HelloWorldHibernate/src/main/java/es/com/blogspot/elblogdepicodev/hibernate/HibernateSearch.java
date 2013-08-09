@@ -45,7 +45,7 @@ public class HibernateSearch {
 
 				String[] terminos = new String[] { "Tapestry", "Pi", "guide" };
 				for (String termino : terminos) {
-					 // Realizar la búsqueda
+					 // Realizar la búsqueda de texto completo
 					 List<Producto> productos = sdao.search(termino, "nombre", "descripcion");
 					 print(termino, productos);
 				}

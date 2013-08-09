@@ -25,7 +25,6 @@ public class HibernateJPA {
 			
 			// Borrar los datos que hubiese
 			dao.removeAll();
-
 			
 			dao.persist(new Producto(
 							"Tapestry 5",
