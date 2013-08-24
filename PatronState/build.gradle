@@ -1,0 +1,17 @@
+description = 'PatronState'
+version = '0.0.1'
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+repositories {	
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.7'
+}
