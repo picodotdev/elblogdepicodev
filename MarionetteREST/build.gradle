@@ -17,7 +17,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.8'
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.9'
     }
 }
 

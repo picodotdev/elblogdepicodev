@@ -6,7 +6,7 @@
 	<title>Aplicación de ejemplo de Backbone.js haciendo uso de un servicio web REST</title>
 	<link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 	<link type="text/css" href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
-	<script type="text/javascript" src="js/require.js" data-main="js/main"></script>
+	<script type="text/javascript" src="js/require.js" data-main="js/main.min"></script>
     <script type="text/javascript">
         requirejs.config({
             shim: {
