@@ -1,0 +1,16 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'es.com.blogspot.elblogdepicodev.properties.Main'
+
+repositories {
+	mavenCentral()  
+}
+  
+dependencies {
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
+}
