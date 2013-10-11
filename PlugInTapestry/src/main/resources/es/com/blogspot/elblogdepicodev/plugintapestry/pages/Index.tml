@@ -16,8 +16,8 @@
 
 <hr />
 
-<div class="row-fluid marketing">
-	<div class="span6">
+<div class="row marketing">
+	<div class="col-lg-6">
 		<h4>Componentes básicos</h4>
 		<p>
 			<t:holaMundo />
@@ -47,8 +47,8 @@
 		<h4>Persistencia web</h4>
 		<p>
 			Cuenta: <t:zone t:id="zone" id="zone" elementName="span">${cuenta}</t:zone> <br />
-			<a t:id="sumarCuenta1" t:type="actionLink">Sumar uno a la cuenta</a> <br/>
-			<a t:id="sumarCuenta1Ajax" t:type="actionLink" t:zone="zone">Sumar uno a la cuenta (Ajax)</a>
+			<a t:id="sumar1Cuenta" t:type="actionLink">Sumar uno a la cuenta</a> <br/>
+			<a t:id="sumar1CuentaAjax" t:type="actionLink" t:zone="zone">Sumar uno a la cuenta (Ajax)</a>
 		</p>
 
 		<h4>Seguridad</h4>
@@ -67,7 +67,7 @@
 		</p>
 	</div>
 
-	<div class="span6">
+	<div class="col-lg-6">
 		<h4>Internacionalización (i18n) y localizacion (i10n)</h4>
 		<p>
 			${message:Este_mensaje_esta_localizado_}<br /> Prueba a cambiar al idioma inglés (en) en las preferencias de tu nevegador.
@@ -76,6 +76,71 @@
 		<h4>Formularios, mantenimiento CRUD</h4>
 		<p>
 			<a t:type="pageLink" page="admin/producto">Mantenimiento CRUD</a> de una entidad persistente en una base de datos relacional.
+		</p>
+		
+		<h4>Solución al doble o N clic con Mixin</h4>
+		<p>
+        	Cuenta: <t:zone t:id="submitOneZone" id="submitOneZone" elementName="span">${cuenta}</t:zone>
+        	
+        	<p>Prueba a hacer clic varias veces en los botones y enlaces y fíjate en como aumenta la cuenta en cada caso. Tienes 3 segundos para
+        	pulsarlos varias veces.</p>
+        	
+        	<div class="row">
+      			<div class="col-md-4">
+					<h5><b>Sin</b> mixin <br/> en form (ajax)</h5>
+        			<form t:id="submitOneForm1" t:type="form" t:zone="submitOneZone">
+            			<input t:type="submit" value="Sumar 1"/>
+        			</form>
+        		</div>
+				<div class="col-md-4">
+					<h5><b>Sin</b> mixin <br/> en enlace (ajax)</h5>
+					<a t:type="eventlink" t:event="sumar1CuentaAjaxSubmitOne" t:zone="submitOneZone">Sumar 1</a>
+				</div>
+				<div class="col-md-4">
+					<h5><b>Sin</b> mixin en <br/> enlace (no ajax)</h5>
+					<a t:type="eventlink" t:event="sumar1CuentaSubmitOne">Sumar 1</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<h5><b>Con</b> mixin en <br/> form (ajax)</h5>
+        			<form t:id="submitOneForm2" t:type="form" t:zone="submitOneZone" t:mixins="submitOne">
+            			<input t:type="submit" value="Sumar 1"/>
+        			</form>
+        		</div>
+        		<div class="col-md-4">
+					<h5><b>Con</b> mixin en <br/> botón (ajax)</h5>
+        			<form t:id="submitOneForm3" t:type="form" t:zone="submitOneZone">
+            			<input t:type="submit" value="Sumar 1" t:mixins="submitOne"/>
+        			</form>
+        		</div>
+        		<div class="col-md-4">
+					<h5><b>Con</b> mixin en <br/> enlace (ajax)</h5>
+					<a t:type="eventlink" t:event="sumar1CuentaAjaxSubmitOne" t:zone="submitOneZone" t:mixins="submitOne">Sumar 1</a>
+				</div>
+			</div>
+		</p>
+		
+		<h4>Solución al CSRF</h4>
+		<p>
+			Cuenta: <t:zone t:id="csrfZone" id="csrfZone" elementName="span">${cuenta}</t:zone>
+		
+			<div class="row">
+				<div class="col-md-4">
+					<h5>En formulario</h5>
+					<form t:id="csrfForm" t:type="form" t:zone="csrfZone" t:mixins="csrf">
+            			<input t:type="submit" value="Sumar 1"/>
+        			</form>
+        		</div>
+        		<div class="col-md-4">
+					<h5>En enlace</h5>
+					<a t:type="eventlink" t:event="sumar1CuentaCsrf" t:zone="csrfZone" t:mixins="csrf">Sumar 1</a>
+				</div>
+        		<div class="col-md-4">
+					<h5>Fallo seguridad</h5>
+					<a t:type="eventlink" t:event="sumar1CuentaCsrf" t:zone="csrfZone" t:parameters="prop:{'t:sid':'dummy-attack'}">Sumar 1</a>
+				</div>
+        	</div>
 		</p>
 
 		<h4>Pruebas</h4>

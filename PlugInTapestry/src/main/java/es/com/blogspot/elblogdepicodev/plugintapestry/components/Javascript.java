@@ -24,10 +24,10 @@ public class Javascript {
 	 private JavaScriptSupport support;
 
 	 void setupRender() {
-		  JSONObject o = new JSONObject();
-		  o.put("selector", selector);
-		  o.put("mensaje", mensaje);
+		  JSONObject spec = new JSONObject();
+		  spec.put("selector", selector);
+		  spec.put("mensaje", mensaje);
 
-		  support.require("app/saludador").invoke("init").with(o);
+		  support.require("app/saludador").invoke("init").with(spec);
 	 }
 }

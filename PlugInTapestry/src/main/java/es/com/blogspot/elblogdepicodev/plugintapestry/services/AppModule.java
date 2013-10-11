@@ -14,10 +14,12 @@ import org.apache.tapestry5.ioc.MethodAdviceReceiver;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Match;
 import org.apache.tapestry5.jpa.JpaTransactionAdvisor;
 import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
+import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
 import org.tynamo.security.SecuritySymbols;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
@@ -26,6 +28,7 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.PlugInStack;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAOImpl;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.workers.CsrfWorker;
 
 public class AppModule {
 
@@ -33,9 +36,9 @@ public class AppModule {
 		  // Añadir al contenedor de dependencias nuestros servicios, se proporciona la interfaz y la
 		  // implementación. Si tuviera un constructor con parámetros se inyectarían como
 		  // dependencias.
-		  //binder.bind(Sevicio.class, ServicioImpl.class);
+		  // binder.bind(Sevicio.class, ServicioImpl.class);
 	 }
-	 
+
 	 public static ProductoDAO buildProductoDAO(EntityManager entityManager) {
 		  return new ProductoDAOImpl(Producto.class, entityManager);
 	 }
@@ -77,6 +80,11 @@ public class AppModule {
 
 	 public static void contributeJavaScriptStackSource(MappedConfiguration<String, JavaScriptStack> configuration) {
 		  configuration.addInstance("plugin", PlugInStack.class);
+	 }
+
+	 @Contribute(ComponentClassTransformWorker2.class)
+	 public static void contributeWorkers(OrderedConfiguration<ComponentClassTransformWorker2> configuration) {
+		  configuration.addInstance("CSRF", CsrfWorker.class);
 	 }
 
 	 /**

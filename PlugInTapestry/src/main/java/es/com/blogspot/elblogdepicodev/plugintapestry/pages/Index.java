@@ -9,8 +9,10 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.entities.Producto;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.annotation.Csrf;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
 
 /**
@@ -27,9 +29,18 @@ public class Index {
 
 	 @Property
 	 private Producto producto;
-	 
+
 	 @Component
 	 private Zone zone;
+	 
+	 @Component
+	 private Zone submitOneZone;
+	 
+	 @Component
+	 private Zone csrfZone;
+	 
+	 @Inject
+	 private AjaxResponseRenderer renderer;
 
 	 // Ciclo de vida
 	 Object onActivate(String context) {
@@ -63,30 +74,82 @@ public class Index {
 	 /**
 	  * Evento que suma uno a la cuenta.
 	  */
-	 void onActionFromSumarCuenta1() throws Exception {
+	 void onActionFromSumar1Cuenta() {
 		  cuenta += 1;
 	 }
-	 
+
+	 /**
+	  * Evento que también suma uno a la cuenta pero con un nombre de evento propio y sin estar
+	  * asociado a un determinado componente.
+	  */
+	 void onSumar1Cuenta() {
+		  cuenta += 1;
+	 }
+
 	 /**
 	  * Evento que suma uno a la cuenta (via Ajax).
 	  */
-	 Object onActionFromSumarCuenta1Ajax() throws Exception {
+	 void onActionFromSumar1CuentaAjax() {
 		  cuenta += 1;
-		  return zone.getBody();
+		  // Actualizar una zona
+		  // return zone.getBody()
+		  // Actualizar varias zonas
+		  renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
+	 }
+	 
+	 void onSumar1CuentaSubmitOne() throws Exception {
+		  Thread.sleep(3000);
+		  cuenta += 1;
+	 }
+
+	 void onSumar1CuentaAjaxSubmitOne() throws Exception {
+		  Thread.sleep(3000);		  
+		  cuenta += 1;
+		  renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
+	 }
+
+	 void onSuccessFromSubmitOneForm1() throws Exception {
+		  onSubmitOne();
+	 }
+		  
+	 void onSuccessFromSubmitOneForm2() throws Exception {
+		  onSubmitOne();		  
+	 }
+			  
+	 void onSuccessFromSubmitOneForm3() throws Exception {
+		  onSubmitOne();
+	 }
+	 
+	 private void onSubmitOne() throws Exception {
+		  Thread.sleep(3000);		  
+		  cuenta += 1;
+		  renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
+	 }
+	 
+	 @Csrf	 
+	 void onSuccessFromCsrfForm() {
+		  cuenta += 1;
+		  renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
+	 }
+	 
+	 @Csrf
+	 void onSumar1CuentaCsrf() {
+		  cuenta += 1;
+		  renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
 	 }
 
 	 /**
 	  * Evento que reinicializa la cuenta.
 	  */
 	 @RequiresPermissions("cuenta:reset")
-	 void onActionFromReiniciarCuenta() throws Exception {
+	 void onActionFromReiniciarCuenta() {
 		  cuenta = 0l;
 	 }
 
 	 /**
 	  * Evento que cierra la sesión del usuario actual.
 	  */
-	 void onActionFromCerrarSesion() throws Exception {
+	 void onActionFromCerrarSesion() {
 		  SecurityUtils.getSecurityManager().logout(getSubject());
 	 }
 

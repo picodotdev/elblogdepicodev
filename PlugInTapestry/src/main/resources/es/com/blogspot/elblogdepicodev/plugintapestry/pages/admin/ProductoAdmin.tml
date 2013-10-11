@@ -31,6 +31,9 @@
         que devuelve un mapa.
     </t:remove>
 	<h1>${labels.get('titulo')}</h1>
+
+	<t:beanEditForm t:object="producto" t:mixins="csrf"/>
+	
 	<t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="form-horizontal">
 		<t:errors class="literal:alert alert-error" />
 
