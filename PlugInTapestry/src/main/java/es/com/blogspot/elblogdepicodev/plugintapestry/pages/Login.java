@@ -17,59 +17,59 @@ import org.tynamo.security.services.SecurityService;
  */
 public class Login {
 
-	 @Property
-	 private String usuario;
+	@Property
+	private String usuario;
 
-	 @Property
-	 private String password;
+	@Property
+	private String password;
 
-	 @Inject
-	 private SecurityService securityService;
+	@Inject
+	private SecurityService securityService;
 
-	 @Component
-	 private Form form;
+	@Component
+	private Form form;
 
-	 Object onActivate() {
-		  // Si el usuario ya está autenticado redirigir a la página Index
-		  if (securityService.isUser()) {
-				return Index.class;
-		  }
-		  return null;
-	 }
+	Object onActivate() {
+		// Si el usuario ya está autenticado redirigir a la página Index
+		if (securityService.isUser()) {
+			return Index.class;
+		}
+		return null;
+	}
 
-	 Object onValidateFromForm() {
-		  if (form.getHasErrors()) {
-				return null;
-		  }
+	Object onValidateFromForm() {
+		if (form.getHasErrors()) {
+			return null;
+		}
 
-		  Subject subject = securityService.getSubject();
+		Subject subject = securityService.getSubject();
 
-		  if (subject == null) {
-				return null;
-		  }
+		if (subject == null) {
+			return null;
+		}
 
-		  // Recolectar en el token los datos introducidos por el usuario
-		  UsernamePasswordToken token = new UsernamePasswordToken(usuario, password);
-		  token.setRememberMe(true);
+		// Recolectar en el token los datos introducidos por el usuario
+		UsernamePasswordToken token = new UsernamePasswordToken(usuario, password);
+		token.setRememberMe(true);
 
-		  try {
-				// Validar e iniciar las creadenciales del usuario
-				subject.login(token);
-		  } catch (UnknownAccountException e) {
-				form.recordError("Cuenta de usuario desconocida");
-				return null;
-		  } catch (IncorrectCredentialsException e) {
-				form.recordError("Credenciales inválidas");
-				return null;
-		  } catch (LockedAccountException e) {
-				form.recordError("Cuenta bloqueada");
-				return null;
-		  } catch (AuthenticationException e) {
-				form.recordError("Se ha producido un error");
-				return null;
-		  }
+		try {
+			// Validar e iniciar las creadenciales del usuario
+			subject.login(token);
+		} catch (UnknownAccountException e) {
+			form.recordError("Cuenta de usuario desconocida");
+			return null;
+		} catch (IncorrectCredentialsException e) {
+			form.recordError("Credenciales inválidas");
+			return null;
+		} catch (LockedAccountException e) {
+			form.recordError("Cuenta bloqueada");
+			return null;
+		} catch (AuthenticationException e) {
+			form.recordError("Se ha producido un error");
+			return null;
+		}
 
-		  // Usuario autenticado, redirigir a la página Index
-		  return Index.class;
-	 }
+		// Usuario autenticado, redirigir a la página Index
+		return Index.class;
+	}
 }

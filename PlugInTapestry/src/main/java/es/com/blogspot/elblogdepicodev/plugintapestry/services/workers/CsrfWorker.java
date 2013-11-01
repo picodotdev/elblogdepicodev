@@ -11,7 +11,7 @@ import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
 import org.apache.tapestry5.services.transform.TransformationSupport;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.annotation.Csrf;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.exceptions.CSRFException;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.exceptions.CsrfException;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.sso.Sid;
 
 public class CsrfWorker implements ComponentClassTransformWorker2 {
@@ -34,7 +34,7 @@ public class CsrfWorker implements ComponentClassTransformWorker2 {
 					 if (sid != null && sid.isValid(rsid)) {
 						  invocation.proceed();
 					 } else {
-						  invocation.setCheckedException(new CSRFException("El parámetro sid de la petición no se corresponde con el sid de la sesión. Esta petición no es válida (Posible ataque CSRF)."));
+						  invocation.setCheckedException(new CsrfException("El parámetro sid de la petición no se corresponde con el sid de la sesión. Esta petición no es válida (Posible ataque CSRF)."));
 						  invocation.rethrow();
 					 }
 				}

@@ -7,7 +7,7 @@ import org.apache.tapestry5.MarkupWriter;
  */
 public class HolaMundo {
 
-	 void beginRender(MarkupWriter writer) {
-		  writer.write("¡Hola mundo! (java)");
-	 }
+	void beginRender(MarkupWriter writer) {
+		writer.write("¡Hola mundo! (java)");
+	}
 }

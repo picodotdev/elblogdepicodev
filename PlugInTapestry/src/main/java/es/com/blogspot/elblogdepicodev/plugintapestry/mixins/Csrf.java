@@ -20,67 +20,67 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.sso.Sid;
 @MixinAfter
 public class Csrf {
 
-	 @SessionState(create = false)
-	 private Sid sid;
+	@SessionState(create = false)
+	private Sid sid;
 
-	 @Inject
-	 private Request request;
+	@Inject
+	private Request request;
 
-	 @Inject
-	 private ComponentResources resources;
+	@Inject
+	private ComponentResources resources;
 
-	 @InjectContainer
-	 private Component container;
+	@InjectContainer
+	private Component container;
 
-	 void beginRender(MarkupWriter writer) {
-		  if (container instanceof EventLink || container instanceof ActionLink) {
-				buildSid();
+	void beginRender(MarkupWriter writer) {
+		if (container instanceof EventLink || container instanceof ActionLink) {
+			buildSid();
 
-				Element element = writer.getElement();
-				String href = element.getAttribute("href");
-				String character = (href.indexOf('?') == -1) ? "?" : "&";
-				element.forceAttributes("href", String.format("%s%st:sid=%s", href, character, sid.getSid()));
-		  }
-	 }
+			Element element = writer.getElement();
+			String href = element.getAttribute("href");
+			String character = (href.indexOf('?') == -1) ? "?" : "&";
+			element.forceAttributes("href", String.format("%s%st:sid=%s", href, character, sid.getSid()));
+		}
+	}
 
-	 void afterRenderTemplate(MarkupWriter writer) {
-		  if (container instanceof BeanEditForm) {
-				Element form = null;
-				for (Node node : writer.getElement().getChildren()) {
-					 if (node instanceof Element) {
-						  Element element = (Element) node;
-						  if (element.getName().equals("form")) {
-								form = element;
-								break;
-						  }
-					 }
+	void afterRenderTemplate(MarkupWriter writer) {
+		if (container instanceof BeanEditForm) {
+			Element form = null;
+			for (Node node : writer.getElement().getChildren()) {
+				if (node instanceof Element) {
+					Element element = (Element) node;
+					if (element.getName().equals("form")) {
+						form = element;
+						break;
+					}
 				}
-				if (form != null) {
-					 buildSid();
-
-					 Element e = form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
-					 e.moveToTop(form);
-				}
-		  }
-	 }
-
-	 void beforeRenderBody(MarkupWriter writer) {
-		  if (container instanceof Form) {
+			}
+			if (form != null) {
 				buildSid();
 
-				Element form = (Element) writer.getElement();
-				form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
-		  } else if (container instanceof BeanEditForm) {
-				buildSid();
+				Element e = form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
+				e.moveToTop(form);
+			}
+		}
+	}
 
-				Element form = (Element) writer.getElement();
-				form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
-		  }
-	 }
+	void beforeRenderBody(MarkupWriter writer) {
+		if (container instanceof Form) {
+			buildSid();
 
-	 private void buildSid() {
-		  if (sid == null) {
-				sid = Sid.newInstance();
-		  }
-	 }
+			Element form = (Element) writer.getElement();
+			form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
+		} else if (container instanceof BeanEditForm) {
+			buildSid();
+
+			Element form = (Element) writer.getElement();
+			form.element("input", "type", "hidden", "name", "t:sid", "value", sid.getSid());
+		}
+	}
+
+	private void buildSid() {
+		if (sid == null) {
+			sid = Sid.newInstance();
+		}
+	}
 }

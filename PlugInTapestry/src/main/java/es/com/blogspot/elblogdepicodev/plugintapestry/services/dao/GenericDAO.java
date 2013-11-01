@@ -1,14 +1,15 @@
 package es.com.blogspot.elblogdepicodev.plugintapestry.services.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.apache.tapestry5.jpa.annotations.CommitAfter;
-
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.Pagination;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.Propagation;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.Transactional;
 
 public interface GenericDAO<T> {
 
-	 T findById(Long id);
+	 T findById(Serializable id);
 
 	 List<T> findAll();
 
@@ -16,12 +17,12 @@ public interface GenericDAO<T> {
 
 	 long countAll();
 
-	 @CommitAfter
-	 void persist(T producto);
+	 @Transactional(propagation = Propagation.REQUIRED)
+	 void persist(T entity);
 
-	 @CommitAfter
-	 void remove(T producto);
+	 @Transactional(propagation = Propagation.REQUIRED)
+	 void remove(T entity);
 
-	 @CommitAfter
+	 @Transactional(propagation = Propagation.REQUIRED)
 	 void removeAll();
 }

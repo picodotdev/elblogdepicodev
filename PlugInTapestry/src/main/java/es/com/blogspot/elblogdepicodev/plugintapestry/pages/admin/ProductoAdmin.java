@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SymbolConstants;
@@ -19,9 +17,10 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.TranslatorSource;
+import org.hibernate.Session;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.entities.Producto;
-import es.com.blogspot.elblogdepicodev.plugintapestry.misc.JPAGridDataSource;
+import es.com.blogspot.elblogdepicodev.plugintapestry.misc.HibernateGridDataSource;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.Pagination;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
 
@@ -38,7 +37,7 @@ public class ProductoAdmin {
 	 private ProductoDAO dao;
 
 	 @Inject
-	 private EntityManager entityManager;
+	 private Session session;
 
 	 @Inject
 	 @Symbol(SymbolConstants.TAPESTRY_VERSION)
@@ -129,9 +128,9 @@ public class ProductoAdmin {
 	 }
 
 	 public GridDataSource getSource() {
-		  return new JPAGridDataSource<Producto>(entityManager, Producto.class) {
+		  return new HibernateGridDataSource(session, Producto.class) {
 				@Override
-				public List<Producto> find(Pagination pagination) {
+				public List find(Pagination pagination) {
 					 return dao.findAll(pagination);
 				}
 		  };

@@ -12,22 +12,22 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
  */
 public class Javascript {
 
-	 @Parameter(defaultPrefix = BindingConstants.LITERAL)
-	 @Property
-	 private String selector;
+	@Parameter(defaultPrefix = BindingConstants.LITERAL)
+	@Property
+	private String selector;
 
-	 @Parameter(defaultPrefix = BindingConstants.LITERAL)
-	 @Property
-	 private String mensaje;
+	@Parameter(defaultPrefix = BindingConstants.LITERAL)
+	@Property
+	private String mensaje;
 
-	 @Environmental
-	 private JavaScriptSupport support;
+	@Environmental
+	private JavaScriptSupport support;
 
-	 void setupRender() {
-		  JSONObject spec = new JSONObject();
-		  spec.put("selector", selector);
-		  spec.put("mensaje", mensaje);
+	void setupRender() {
+		JSONObject spec = new JSONObject();
+		spec.put("selector", selector);
+		spec.put("mensaje", mensaje);
 
-		  support.require("app/saludador").invoke("init").with(spec);
-	 }
+		support.require("app/saludador").invoke("init").with(spec);
+	}
 }

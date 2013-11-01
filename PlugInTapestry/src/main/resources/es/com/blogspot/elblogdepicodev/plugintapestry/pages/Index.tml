@@ -6,7 +6,7 @@
 		PlugIn <span style="color: red;">Tapestry</span>
 	</h1>
 	<p class="lead">
-		Pequeños ejemplos prácticos del libro <a href="http://muko.eu01.aws.af.cm/plugin">PlugIn Tapestry</a> que son una muestra muy reducida de como se hacen con el framework <a
+		Pequeños ejemplos simples, avanzados y prácticos del libro <a href="http://muko.eu01.aws.af.cm/plugin">PlugIn Tapestry</a> que son una muestra muy reducida de como se hacen con el framework <a
 			href="http://tapestry.apache.org/">Apache Tapestry</a> unas cuantas cosas habituales en toda aplicación o página web.
 	</p>
 	<p>
@@ -65,6 +65,15 @@
 				<a t:type="pageLink" page="login" class="btn btn-primary btn-mini" style="color: white;">Iniciar sesión</a>
 			</s:guest>
 		</p>
+		
+		<h4>Pruebas</h4>
+		<p>
+			Unitarias con <a href="http://junit.org/">JUnit</a> y <a href="https://code.google.com/p/mockito/">Mockito</a> o simplemente con <a href="https://code.google.com/p/spock/">Spock</a>
+			y de integración con <a href="http://www.gebish.org/">Geb</a> y Spock (ver <a href="https://github.com/picodotdev/elblogdepicodev/PlugInTapestry">código fuente</a>).
+		</p>
+		
+		<h4>Estado de la aplicación</h4>
+		<p><a t:type="pagelink" page="T5Dashboard">Dashboard</a></p>
 	</div>
 
 	<div class="col-lg-6">
@@ -141,12 +150,6 @@
 					<a t:type="eventlink" t:event="sumar1CuentaCsrf" t:zone="csrfZone" t:parameters="prop:{'t:sid':'dummy-attack'}">Sumar 1</a>
 				</div>
         	</div>
-		</p>
-
-		<h4>Pruebas</h4>
-		<p>
-			Unitarias con <a href="http://junit.org/">JUnit</a> y <a href="https://code.google.com/p/mockito/">Mockito</a> o simplemente con <a href="https://code.google.com/p/spock/">Spock</a>
-			y de integración con <a href="http://www.gebish.org/">Geb</a> y Spock (ver <a href="https://github.com/picodotdev/elblogdepicodev/PlugInTapestry">código fuente</a>).
 		</p>
 
 		<h4>Más ejemplos</h4>

@@ -11,13 +11,13 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
  */
 public class NumeroProductos {
 
-	 @Inject
-	 ProductoDAO dao;
+	@Inject
+	ProductoDAO dao;
 
-	 @BeginRender
-	 boolean beginRender(MarkupWriter writer) {
-		  long numero = dao.countAll();
-		  writer.write(String.format("Hay %d productos", numero));
-		  return false;
-	 }
+	@BeginRender
+	boolean beginRender(MarkupWriter writer) {
+		long numero = dao.countAll();
+		writer.write(String.format("Hay %d productos", numero));
+		return false;
+	}
 }

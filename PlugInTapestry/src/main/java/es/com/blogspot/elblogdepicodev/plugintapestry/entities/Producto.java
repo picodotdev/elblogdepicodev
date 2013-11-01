@@ -16,71 +16,71 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Producto implements Serializable {
 
-	 private static final long serialVersionUID = 4301591927955774037L;
+	private static final long serialVersionUID = 4301591927955774037L;
 
-	 @Id
-	 @GeneratedValue
-	 private Long id;
-	 @NotNull
-	 @Length(min = 3, max = 100)
-	 @Column(name = "nombre", length = 100)
-	 private String nombre;
-	 @NotNull
-	 @Length(min = 0, max = 5000)
-	 @Column(name = "descripcion", length = 5000)
-	 private String descripcion;
-	 @NotNull
-	 @Min(value = 0)
-	 @Max(value = 1000)
-	 @Column(name = "cantidad")
-	 private Long cantidad;
-	 @NotNull
-	 @Column(name = "fecha")
-	 private Date fecha;
+	@Id
+	@GeneratedValue
+	private Long id;
+	@NotNull
+	@Length(min = 3, max = 100)
+	@Column(name = "nombre", length = 100)
+	private String nombre;
+	@NotNull
+	@Length(min = 0, max = 5000)
+	@Column(name = "descripcion", length = 5000)
+	private String descripcion;
+	@NotNull
+	@Min(value = 0)
+	@Max(value = 1000)
+	@Column(name = "cantidad")
+	private Long cantidad;
+	@NotNull
+	@Column(name = "fecha")
+	private Date fecha;
 
-	 public Producto() {
-	 }
+	public Producto() {
+	}
 
-	 public Producto(String nombre, String descripcion, Long cantidad, Date fecha) {
-		  this.nombre = nombre;
-		  this.descripcion = descripcion;
-		  this.cantidad = cantidad;
-		  this.fecha = fecha;
-	 }
+	public Producto(String nombre, String descripcion, Long cantidad, Date fecha) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.cantidad = cantidad;
+		this.fecha = fecha;
+	}
 
-	 public Long getId() {
-		  return id;
-	 }
+	public Long getId() {
+		return id;
+	}
 
-	 public String getNombre() {
-		  return nombre;
-	 }
+	public String getNombre() {
+		return nombre;
+	}
 
-	 public void setNombre(String nombre) {
-		  this.nombre = nombre;
-	 }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-	 public String getDescripcion() {
-		  return descripcion;
-	 }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-	 public void setDescripcion(String descripcion) {
-		  this.descripcion = descripcion;
-	 }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-	 public Long getCantidad() {
-		  return cantidad;
-	 }
+	public Long getCantidad() {
+		return cantidad;
+	}
 
-	 public void setCantidad(Long cantidad) {
-		  this.cantidad = cantidad;
-	 }
+	public void setCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+	}
 
-	 public Date getFecha() {
-		  return fecha;
-	 }
+	public Date getFecha() {
+		return fecha;
+	}
 
-	 public void setFecha(Date fecha) {
-		  this.fecha = fecha;
-	 }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 }

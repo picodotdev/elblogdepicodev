@@ -15,26 +15,26 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
  */
 public class Ajax {
 
-	 @Parameter(defaultPrefix = BindingConstants.LITERAL)
-	 private String selector;
+	@Parameter(defaultPrefix = BindingConstants.LITERAL)
+	private String selector;
 
-	 @Environmental
-	 private JavaScriptSupport support;
+	@Environmental
+	private JavaScriptSupport support;
 
-	 @Inject
-	 private ComponentResources componentResources;
+	@Inject
+	private ComponentResources componentResources;
 
-	 Object onGetColores() {
-		  return new JSONArray("Rojo", "Verde", "Azul", "Negro");
-	 }
+	Object onGetColores() {
+		return new JSONArray("Rojo", "Verde", "Azul", "Negro");
+	}
 
-	 protected void afterRender(MarkupWriter writer) {
-		  String link = componentResources.createEventLink("getColores").toAbsoluteURI();
+	protected void afterRender(MarkupWriter writer) {
+		String link = componentResources.createEventLink("getColores").toAbsoluteURI();
 
-		  JSONObject spec = new JSONObject();
-		  spec.put("selector", selector);
-		  spec.put("link", link);
+		JSONObject spec = new JSONObject();
+		spec.put("selector", selector);
+		spec.put("link", link);
 
-		  support.require("app/colores").invoke("init").with(spec);
-	 }
+		support.require("app/colores").invoke("init").with(spec);
+	}
 }

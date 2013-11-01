@@ -13,38 +13,39 @@ import org.apache.tapestry5.services.FormSupport;
 
 public class DateTranslator extends AbstractTranslator<Date> {
 
-	 private String patron;
+	private String patron;
 
-	 public DateTranslator(String patron) {
-		  super("date", Date.class, "date-format-exception");
-		  this.patron = patron;
-	 }
+	public DateTranslator(String patron) {
+		super("date", Date.class, "date-format-exception");
+		this.patron = patron;
+	}
 
-	 @Override
-	 public String toClient(Date value) {
-		  if (value == null) {
-				return null;
-		  }
+	@Override
+	public String toClient(Date value) {
+		if (value == null) {
+			return null;
+		}
 
-		  // Convertir el objeto date a su representación en String utilizando un patrón de fecha.
-		  return new SimpleDateFormat(patron).format(value);
-	 }
+		// Convertir el objeto date a su representación en String utilizando un patrón de fecha.
+		return new SimpleDateFormat(patron).format(value);
+	}
 
-	 @Override
-	 public Date parseClient(Field field, String clientValue, String message) throws ValidationException {
-		  if (clientValue == null) {
-				return null;
-		  }
+	@Override
+	public Date parseClient(Field field, String clientValue, String message) throws ValidationException {
+		if (clientValue == null) {
+			return null;
+		}
 
-		  try {
-				// Convertir la represetación del objeto fecha en String a su representación en objeto Date.
-				return new SimpleDateFormat(patron).parse(clientValue);
-		  } catch (ParseException e) {
-				throw new ValidationException(MessageFormat.format(message, field.getLabel()));
-		  }
-	 }
+		try {
+			// Convertir la represetación del objeto fecha en String a su representación en objeto
+			// Date.
+			return new SimpleDateFormat(patron).parse(clientValue);
+		} catch (ParseException e) {
+			throw new ValidationException(MessageFormat.format(message, field.getLabel()));
+		}
+	}
 
-	 @Override
-	 public void render(Field field, String message, MarkupWriter writer, FormSupport formSupport) {
-	 }
+	@Override
+	public void render(Field field, String message, MarkupWriter writer, FormSupport formSupport) {
+	}
 }

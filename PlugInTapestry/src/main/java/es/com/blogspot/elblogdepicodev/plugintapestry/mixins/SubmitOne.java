@@ -9,19 +9,19 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 public class SubmitOne {
 
-	 @Inject
-	 private JavaScriptSupport support;
+	@Inject
+	private JavaScriptSupport support;
 
-	 @InjectContainer
-	 private ClientElement element;
-	 
-	 @Inject
-	 private ComponentResources resources;
+	@InjectContainer
+	private ClientElement element;
 
-	 public void afterRender() {
-		  JSONObject spec = new JSONObject();
-		  spec.put("elementId", element.getClientId());		  
-		  
-		  support.require("app/submitOne").invoke("init").with(spec);
-	 }
+	@Inject
+	private ComponentResources resources;
+
+	public void afterRender() {
+		JSONObject spec = new JSONObject();
+		spec.put("elementId", element.getClientId());
+
+		support.require("app/submitOne").invoke("init").with(spec);
+	}
 }

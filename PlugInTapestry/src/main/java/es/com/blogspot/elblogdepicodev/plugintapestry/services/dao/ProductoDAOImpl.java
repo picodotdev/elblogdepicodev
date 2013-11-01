@@ -1,12 +1,12 @@
 package es.com.blogspot.elblogdepicodev.plugintapestry.services.dao;
 
-import javax.persistence.EntityManager;
+import org.hibernate.Session;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.entities.Producto;
 
 public class ProductoDAOImpl extends GenericDAOImpl<Producto> implements ProductoDAO {
 
-	 public ProductoDAOImpl(Class<Producto> clazz, EntityManager entityManager) {
-		  super(clazz, entityManager);
-	 }
+	public ProductoDAOImpl(Session session) {
+		super(Producto.class, session);
+	}
 }

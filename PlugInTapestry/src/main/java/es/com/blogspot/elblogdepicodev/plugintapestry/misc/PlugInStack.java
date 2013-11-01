@@ -11,38 +11,38 @@ import org.apache.tapestry5.services.javascript.StylesheetLink;
 
 public class PlugInStack implements JavaScriptStack {
 
-	 private final AssetSource assetSource;
+	private final AssetSource assetSource;
 
-	 public PlugInStack(final AssetSource assetSource) {
-		  this.assetSource = assetSource;
-	 }
+	public PlugInStack(final AssetSource assetSource) {
+		this.assetSource = assetSource;
+	}
 
-	 @Override
-	 public String getInitialization() {
-		  return null;
-	 }
-	 
-	 @Override
-	 public List<String> getModules() {
-		  return Collections.emptyList();
-	 }
+	@Override
+	public String getInitialization() {
+		return null;
+	}
 
-	 @Override
-	 public List<Asset> getJavaScriptLibraries() {
-		  return Collections.emptyList();
-	 }
+	@Override
+	public List<String> getModules() {
+		return Collections.emptyList();
+	}
 
-	 @Override
-	 public List<StylesheetLink> getStylesheets() {
-		  List<StylesheetLink> r = new ArrayList<StylesheetLink>();
+	@Override
+	public List<Asset> getJavaScriptLibraries() {
+		return Collections.emptyList();
+	}
 
-		  r.add(new StylesheetLink(assetSource.getContextAsset("css/app.css", null)));
+	@Override
+	public List<StylesheetLink> getStylesheets() {
+		List<StylesheetLink> r = new ArrayList<StylesheetLink>();
 
-		  return r;
-	 }
+		r.add(new StylesheetLink(assetSource.getContextAsset("css/app.css", null)));
 
-	 @Override
-	 public List<String> getStacks() {
-		  return Collections.emptyList();
-	 }
+		return r;
+	}
+
+	@Override
+	public List<String> getStacks() {
+		return Collections.emptyList();
+	}
 }

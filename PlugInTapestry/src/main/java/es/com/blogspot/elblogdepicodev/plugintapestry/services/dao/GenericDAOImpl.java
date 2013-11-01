@@ -1,28 +1,30 @@
 package es.com.blogspot.elblogdepicodev.plugintapestry.services.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.Pagination;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class GenericDAOImpl<T> implements GenericDAO<T> {
 
-	 private Class<T> clazz;
-	 private EntityManager entityManager;
+	 private Class clazz;
+	 private Session session;
 
-	 public GenericDAOImpl(Class<T> clazz, EntityManager entityManager) {
+	 public GenericDAOImpl(Class<T> clazz, Session session) {
 		  this.clazz = clazz;
-		  this.entityManager = entityManager;
+		  this.session = session;
 	 }
 
 	 @Override
-	 public T findById(Long id) {
-		  return entityManager.find(clazz, id);
+	 public T findById(Serializable id) {
+		  return (T) session.get(clazz, id);
 	 }
 
 	 @Override
@@ -32,48 +34,46 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
 	 @Override
 	 public List<T> findAll(Pagination paginacion) {
-		  CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		  CriteriaQuery<T> cq = cb.createQuery(clazz);
-		  Root<T> root = cq.from(clazz);
+		  Criteria criteria = session.createCriteria(clazz);
 
-		  cq.select(root);
 		  if (paginacion != null) {
-				cq.orderBy(paginacion.getOrders(root, cb));
+				List<Order> orders = paginacion.getOrders();
+				for (Order order : orders) {
+					 criteria.addOrder(order);					 
+				}
 		  }
 
-		  Query q = entityManager.createQuery(cq);
 		  if (paginacion != null) {
-				q.setFirstResult(paginacion.getStart());
-				q.setMaxResults(paginacion.getEnd() - paginacion.getStart() + 1);
+				criteria.setFirstResult(paginacion.getStart());
+				criteria.setFetchSize(paginacion.getEnd() - paginacion.getStart() + 1);
 		  }
 
-		  return q.getResultList();
+		  return criteria.list();
 	 }
 
 	 @Override
 	 public long countAll() {
-		  CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		  Criteria criteria = session.createCriteria(clazz);
 
-		  CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		  cq.select(cb.count(cq.from(clazz)));
+		  criteria.setProjection(Projections.rowCount());
 
-		  return entityManager.createQuery(cq).getSingleResult().intValue();
+		  return (long) criteria.uniqueResult();
 	 }
 
 	 @Override
 	 public void persist(T object) {
-		  entityManager.persist(object);
+		  session.persist(object);
 	 }
 
 	 @Override
 	 public void remove(T object) {
-		  entityManager.remove(object);
+		  session.delete(object);
 	 }
 
 	 @Override
 	 public void removeAll() {
-		  String jpql = String.format("delete from %s", clazz.getName());
-		  Query query = entityManager.createQuery(jpql);
+		  String hql = String.format("delete from %s", clazz.getName());
+		  Query query = session.createQuery(hql);
 		  query.executeUpdate();
 	 }
 }

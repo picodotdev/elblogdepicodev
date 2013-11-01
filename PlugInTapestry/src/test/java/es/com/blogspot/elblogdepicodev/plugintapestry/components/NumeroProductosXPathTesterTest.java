@@ -15,22 +15,22 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.test.AbstractTest;
 
 public class NumeroProductosXPathTesterTest extends AbstractTest {
 
-	 // @ForComponents("nombre")
-	 // private String nombre;
+	// @ForComponents("nombre")
+	// private String nombre;
 
-	 @ForComponents
-	 private ProductoDAO dao;
+	@ForComponents
+	private ProductoDAO dao;
 
-	 @Before
-	 public void before() {
-		  dao = Mockito.mock(ProductoDAO.class);
-		  Mockito.when(dao.countAll()).thenReturn(0l);
-	 }
+	@Before
+	public void before() {
+		dao = Mockito.mock(ProductoDAO.class);
+		Mockito.when(dao.countAll()).thenReturn(0l);
+	}
 
-	 @Test
-	 public void ceroProductos() throws JaxenException {
-		  Document doc = tester.renderPage("test/NumeroProductosTest");
-		  String text = TapestryXPath.xpath("id('componente')").selectSingleElement(doc).getChildMarkup();
-		  Assert.assertEquals("Hay 0 productos", text);
-	 }
+	@Test
+	public void ceroProductos() throws JaxenException {
+		Document doc = tester.renderPage("test/NumeroProductosTest");
+		String text = TapestryXPath.xpath("id('componente')").selectSingleElement(doc).getChildMarkup();
+		Assert.assertEquals("Hay 0 productos", text);
+	}
 }

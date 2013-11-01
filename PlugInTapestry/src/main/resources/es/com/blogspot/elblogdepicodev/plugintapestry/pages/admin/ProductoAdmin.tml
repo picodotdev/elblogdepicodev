@@ -32,47 +32,47 @@
     </t:remove>
 	<h1>${labels.get('titulo')}</h1>
 
-	<t:beanEditForm t:object="producto" t:mixins="csrf"/>
-	
-	<t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="form-horizontal">
+	<t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="well" role="form">
 		<t:errors class="literal:alert alert-error" />
 
-		<div class="control-group">
+		<div class="form-group">
 			<t:label for="nombre" />
 			<div class="controls">
 				<input t:type="textfield" t:id="nombre" value="producto.nombre" size="100" label="Nombre" />
 			</div>
 		</div>
 
-		<div class="control-group">
+		<div class="form-group">
 			<t:label for="descripcion" />
 			<div class="controls">
 				<input t:type="textarea" t:id="descripcion" value="producto.descripcion" label="Descripción" />
 			</div>
 		</div>
 
-		<div class="control-group">
+		<div class="form-group">
 			<t:label for="cantidad" />
 			<div class="controls">
-				<input t:type="textfield" t:id="cantidad" value="producto.cantidad" size="4" label="Cantidad" />
+				<input t:type="textfield" t:id="cantidad" value="producto.cantidad" size="4" label="Cantidad" class="numeric"/>
 			</div>
 		</div>
 
-		<div class="control-group">
+		<div class="form-group">
 			<t:label for="fecha" />
 			<div class="controls">
+				
+			</div>
+			<div class="input-group">
 				<input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha" />
+				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			</div>
 		</div>
 
-		<div class="control-group">
-			<div class="controls">
-				<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" />
-				<t:if test="producto.id">
-					<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink>
-				</t:if>
-				<input t:type="submit" class="btn" value="Cancelar" mode="cancel" />
-			</div>
+		<div>
+			<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" />
+			<t:if test="producto.id">
+				<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink>
+			</t:if>
+			<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" />
 		</div>
 	</t:form>
 </t:block>

@@ -13,12 +13,12 @@ import org.apache.tapestry5.services.Request;
 @SuppressWarnings("unused")
 public class Error404 {
 
-	 @Property
-	 @Inject
-	 private Request request;
+	@Property
+	@Inject
+	private Request request;
 
-	 @Property
-	 @Inject
-	 @Symbol(SymbolConstants.PRODUCTION_MODE)
-	 private boolean productionMode;
+	@Property
+	@Inject
+	@Symbol(SymbolConstants.PRODUCTION_MODE)
+	private boolean productionMode;
 }
