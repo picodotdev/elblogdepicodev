@@ -5,26 +5,28 @@ import org.apache.tapestry5.plastic.MethodInvocation;
 
 public class RequiredTransactionAdvice implements MethodAdvice {
 
-	 private TransactionService service;
+	private TransactionDefinition definition;
+	private TransactionService service;
 
-	 public RequiredTransactionAdvice(TransactionService service) {
-		  this.service = service;
-	 }
+	public RequiredTransactionAdvice(TransactionDefinition definition, TransactionService service) {
+		this.definition = definition;
+		this.service = service;
+	}
 
-	 public void advise(MethodInvocation invocation) {
-		  boolean isNew = service.beginIfNotPresent();
+	public void advise(MethodInvocation invocation) {
+		boolean isNew = service.beginIfNoPresent(definition);
 
-		  try {
-				invocation.proceed();
+		try {
+			invocation.proceed();
 
-				if (isNew) {
-					 service.commit();
-				}
-		  } catch (Throwable e) {
-				if (isNew) {
-					 service.rollback();
-				}
-				throw e;
-		  }
-	 }
+			if (isNew) {
+				service.commit();
+			}
+		} catch (Exception e) {
+			if (isNew) {
+				service.rollback();
+			}
+			throw e;
+		}
+	}
 }

@@ -2,13 +2,13 @@ package es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction;
 
 public interface TransactionService {
 
-	 boolean beginIfNotPresent();
+	boolean beginIfNoPresent(TransactionDefinition definition);
 
-	 void begin();
+	void begin(TransactionDefinition definition);
 
-	 void commit();
+	void commit();
 
-	 void rollback();
+	void rollback();
 
-	 boolean isWithinTransaction();
+	boolean isWithinTransaction();
 }

@@ -9,4 +9,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 public @interface Transactional {
 	 Propagation propagation() default Propagation.REQUIRED;
+	 int isolation() default -1;
+	 boolean readonly() default false;
+	 int timeout() default -1;
 }

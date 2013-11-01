@@ -103,10 +103,11 @@ public class AppModule {
 	}
 
 	/**
-	 * Hacer que los servicios DAO soporten las anotaciones de transaccionalidad.
+	 * Dar soporte transaccional a los servicios con una interfaz que cumplan el patrón (los advices
+	 * se aplican a los métodos de una interfaz).
 	 */
-	@Match("*DAO")
-	public static void adviseTransactionally(TransactionAdvisor advisor, MethodAdviceReceiver receiver) {
-		advisor.addTransactionAdvice(receiver);
+	@Match({ "*DAO" })
+	public static void adviseTransaction(TransactionAdvisor advisor, MethodAdviceReceiver receiver) {
+		advisor.addAdvice(receiver);
 	}
 }

@@ -4,21 +4,23 @@ import org.apache.tapestry5.plastic.MethodAdvice;
 import org.apache.tapestry5.plastic.MethodInvocation;
 
 public class NestedTransactionAdvice implements MethodAdvice {
- 
-   private TransactionService service;
- 
-   public NestedTransactionAdvice(TransactionService service) {
-      this.service = service;
-   }
- 
-   public void advise(MethodInvocation invocation) {
-      try{
-         service.begin();
-         invocation.proceed();
-         service.commit();
-      }catch(Exception ex){
-         service.rollback();
-         throw new RuntimeException(ex);
-      }
-   }
+
+	private TransactionDefinition definition;
+	private TransactionService service;
+
+	public NestedTransactionAdvice(TransactionDefinition definition, TransactionService service) {
+		this.definition = definition;
+		this.service = service;
+	}
+
+	public void advise(MethodInvocation invocation) {
+		try {
+			service.begin(definition);
+			invocation.proceed();
+			service.commit();
+		} catch (Exception e) {
+			service.rollback();
+			throw e;
+		}
+	}
 }

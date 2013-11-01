@@ -8,13 +8,13 @@ import org.hibernate.Session;
 public class HibernateSessionManagerImpl implements HibernateSessionManager {
 
 	private HibernateSessionSource source;
-	private PerthreadManager perthreadManager;
+	private PerthreadManager manager;
 
 	private Session session;
 
-	public HibernateSessionManagerImpl(HibernateSessionSource source, PerthreadManager perthreadManager) {
+	public HibernateSessionManagerImpl(HibernateSessionSource source, PerthreadManager manager) {
 		this.source = source;
-		this.perthreadManager = perthreadManager;
+		this.manager = manager;
 	}
 
 	public void abort() {
@@ -28,7 +28,8 @@ public class HibernateSessionManagerImpl implements HibernateSessionManager {
 	public Session getSession() {
 		if (session == null) {
 			session = source.create();
-			perthreadManager.addThreadCleanupCallback(new Runnable() {
+
+			manager.addThreadCleanupCallback(new Runnable() {
 				@Override
 				public void run() {
 					cleanup();
