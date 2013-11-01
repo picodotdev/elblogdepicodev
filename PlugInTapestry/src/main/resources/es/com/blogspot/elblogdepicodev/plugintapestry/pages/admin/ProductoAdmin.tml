@@ -70,7 +70,7 @@
 		<div>
 			<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" />
 			<t:if test="producto.id">
-				<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger">Eliminar</t:eventlink>
+				<a t:type="eventlink" event="eliminar" context="producto.id" class="btn btn-danger" style="color: white;">Eliminar</a>
 			</t:if>
 			<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" />
 		</div>
