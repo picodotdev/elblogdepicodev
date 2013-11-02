@@ -9,12 +9,16 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.Trans
 
 public interface GenericDAO<T> {
 
+	 @Transactional(propagation = Propagation.SUPPORTS, readonly = true)
 	 T findById(Serializable id);
 
+	 @Transactional(propagation = Propagation.SUPPORTS, readonly = true)
 	 List<T> findAll();
 
+	 @Transactional(propagation = Propagation.SUPPORTS, readonly = true)
 	 List<T> findAll(Pagination paginacion);
 
+	 @Transactional(propagation = Propagation.SUPPORTS, readonly = true)
 	 long countAll();
 
 	 @Transactional(propagation = Propagation.REQUIRED)

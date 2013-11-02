@@ -102,8 +102,8 @@ public class AppModule {
 		configuration.addInstance("CSRF", CsrfWorker.class);
 	}
 
-	/**
-	 * Dar soporte transaccional a los servicios con una interfaz que cumplan el patrón (los advices
+	/** 	 
+	 * Dar soporte transaccional a los servicios que cumplan los patrones (los advices
 	 * se aplican a los métodos de una interfaz).
 	 */
 	@Match({ "*DAO" })
