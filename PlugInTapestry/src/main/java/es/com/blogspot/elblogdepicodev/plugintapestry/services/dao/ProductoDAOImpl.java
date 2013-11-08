@@ -1,12 +1,14 @@
 package es.com.blogspot.elblogdepicodev.plugintapestry.services.dao;
 
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.entities.Producto;
 
 public class ProductoDAOImpl extends GenericDAOImpl<Producto> implements ProductoDAO {
 
-	public ProductoDAOImpl(Session session) {
-		super(Producto.class, session);
+	@Autowired
+	public ProductoDAOImpl(SessionFactory sessionFactory) {
+		super(Producto.class, sessionFactory);
 	}
 }

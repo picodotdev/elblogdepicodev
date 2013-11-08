@@ -38,7 +38,7 @@ public class ProductoAdmin {
 
 	 @Inject
 	 private Session session;
-
+	 
 	 @Inject
 	 @Symbol(SymbolConstants.TAPESTRY_VERSION)
 	 @Property

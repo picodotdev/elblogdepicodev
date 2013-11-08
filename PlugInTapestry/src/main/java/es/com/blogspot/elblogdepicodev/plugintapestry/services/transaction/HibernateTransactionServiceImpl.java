@@ -14,11 +14,11 @@ public class HibernateTransactionServiceImpl implements TransactionService {
 	private Session session;
 	private Stack<Transaction> transactionStack;
 
-	public HibernateTransactionServiceImpl(Session session, PerthreadManager perthreadManager) {
+	public HibernateTransactionServiceImpl(Session session, PerthreadManager manager) {
 		this.session = session;
 		this.transactionStack = new Stack<Transaction>();
 
-		perthreadManager.addThreadCleanupCallback(new Runnable() {
+		manager.addThreadCleanupCallback(new Runnable() {
 			@Override
 			public void run() {
 				cleanup();

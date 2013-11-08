@@ -7,18 +7,13 @@
         <param-name>tapestry.app-package</param-name>
         <param-value>es.com.blogspot.elblogdepicodev.plugintapestry</param-value>
     </context-param>
-    <!-- Specify some additional Modules for two different execution modes: development and qa. Remember that the default execution mode is production -->
     <context-param>
-        <param-name>tapestry.development-modules</param-name>
-        <param-value>es.com.blogspot.elblogdepicodev.muko.services.DevelopmentModule</param-value>
-    </context-param>
-    <context-param>
-        <param-name>tapestry.qa-modules</param-name>
-        <param-value>es.com.blogspot.elblogdepicodev.muko.services.QaModule</param-value>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/applicationContext.xml</param-value>
     </context-param>
     <filter>
         <filter-name>app</filter-name>
-        <filter-class>org.apache.tapestry5.TapestryFilter</filter-class>
+        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>app</filter-name>

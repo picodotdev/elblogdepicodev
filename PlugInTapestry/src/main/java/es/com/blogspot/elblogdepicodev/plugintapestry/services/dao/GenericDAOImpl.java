@@ -5,75 +5,84 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.Pagination;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class GenericDAOImpl<T> implements GenericDAO<T> {
 
-	 private Class clazz;
-	 private Session session;
+	private Class clazz;
+	protected SessionFactory sessionFactory;
 
-	 public GenericDAOImpl(Class<T> clazz, Session session) {
-		  this.clazz = clazz;
-		  this.session = session;
-	 }
+	public GenericDAOImpl(Class<T> clazz, SessionFactory sessionFactory) {
+		this.clazz = clazz;
+		this.sessionFactory = sessionFactory;
+	}
 
-	 @Override
-	 public T findById(Serializable id) {
-		  return (T) session.get(clazz, id);
-	 }
+	@Override
+	@Transactional(readOnly = true)
+	public T findById(Serializable id) {
+		return (T) sessionFactory.getCurrentSession().get(clazz, id);
+	}
 
-	 @Override
-	 public List<T> findAll() {
-		  return findAll(null);
-	 }
+	@Override
+	@Transactional(readOnly = true)
+	public List<T> findAll() {
+		return findAll(null);
+	}
 
-	 @Override
-	 public List<T> findAll(Pagination paginacion) {
-		  Criteria criteria = session.createCriteria(clazz);
+	@Override
+	@Transactional(readOnly = true)
+	public List<T> findAll(Pagination paginacion) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(clazz);
 
-		  if (paginacion != null) {
-				List<Order> orders = paginacion.getOrders();
-				for (Order order : orders) {
-					 criteria.addOrder(order);					 
-				}
-		  }
+		if (paginacion != null) {
+			List<Order> orders = paginacion.getOrders();
+			for (Order order : orders) {
+				criteria.addOrder(order);
+			}
+		}
 
-		  if (paginacion != null) {
-				criteria.setFirstResult(paginacion.getStart());
-				criteria.setFetchSize(paginacion.getEnd() - paginacion.getStart() + 1);
-		  }
+		if (paginacion != null) {
+			criteria.setFirstResult(paginacion.getStart());
+			criteria.setFetchSize(paginacion.getEnd() - paginacion.getStart() + 1);
+		}
 
-		  return criteria.list();
-	 }
+		return criteria.list();
+	}
 
-	 @Override
-	 public long countAll() {
-		  Criteria criteria = session.createCriteria(clazz);
+	@Override
+	@Transactional(readOnly = true)
+	public long countAll() {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(clazz);
 
-		  criteria.setProjection(Projections.rowCount());
+		criteria.setProjection(Projections.rowCount());
 
-		  return (long) criteria.uniqueResult();
-	 }
+		return (long) criteria.uniqueResult();
+	}
 
-	 @Override
-	 public void persist(T object) {
-		  session.persist(object);
-	 }
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void persist(T object) {
+		sessionFactory.getCurrentSession().persist(object);
+	}
 
-	 @Override
-	 public void remove(T object) {
-		  session.delete(object);
-	 }
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void remove(T object) {
+		sessionFactory.getCurrentSession().delete(object);
+	}
 
-	 @Override
-	 public void removeAll() {
-		  String hql = String.format("delete from %s", clazz.getName());
-		  Query query = session.createQuery(hql);
-		  query.executeUpdate();
-	 }
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void removeAll() {
+		String hql = String.format("delete from %s", clazz.getName());
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.executeUpdate();
+	}
 }

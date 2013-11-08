@@ -7,32 +7,24 @@ import org.apache.shiro.realm.Realm;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.beanvalidator.BeanValidatorConfigurer;
-import org.apache.tapestry5.hibernate.HibernateSessionManager;
+import org.apache.tapestry5.hibernate.HibernateSessionSource;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
-import org.apache.tapestry5.ioc.MethodAdviceReceiver;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.Resource;
-import org.apache.tapestry5.ioc.ScopeConstants;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
-import org.apache.tapestry5.ioc.annotations.Match;
 import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
+import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.PlugInStack;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAOImpl;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.HibernateSessionManagerImpl;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.HibernateTransactionServiceImpl;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.TransactionAdvisor;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.TransactionAdvisorImpl;
-import es.com.blogspot.elblogdepicodev.plugintapestry.services.transaction.TransactionService;
+import es.com.blogspot.elblogdepicodev.plugintapestry.services.hibernate.HibernateSessionSourceImpl;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.workers.CsrfWorker;
 
 public class AppModule {
@@ -43,17 +35,17 @@ public class AppModule {
 		// dependencias.
 		// binder.bind(Sevicio.class, ServicioImpl.class);
 
-		// Servicios para la gestión de transacciones
-		binder.bind(HibernateSessionManager.class, HibernateSessionManagerImpl.class).scope(ScopeConstants.PERTHREAD).withId("AppHibernateSessionManager");
-		binder.bind(TransactionAdvisor.class, TransactionAdvisorImpl.class);
-		binder.bind(TransactionService.class, HibernateTransactionServiceImpl.class).scope(ScopeConstants.PERTHREAD);
-
-		// Servicios de persistencia
-		binder.bind(ProductoDAO.class, ProductoDAOImpl.class);
+		// Servicios de persistencia (definidos en Spring por la necesidad de que Spring gestione las transacciones)
+		// binder.bind(ProductoDAO.class, ProductoDAOImpl.class);
 	}
 
-	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @Local HibernateSessionManager sessionManager) {
-		configuration.add(HibernateSessionManager.class, sessionManager);
+	// Servicio que delega en Spring la inicialización de Hibernate, solo obtiene la configuración de Hibernate creada por Spring
+	public static HibernateSessionSource buildAppHibernateSessionSource(ApplicationContext context) {
+		return new HibernateSessionSourceImpl(context);
+	}
+
+	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @Local HibernateSessionSource hibernateSessionSource) {
+		configuration.add(HibernateSessionSource.class, hibernateSessionSource);
 	}
 
 	public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration) {
@@ -100,14 +92,5 @@ public class AppModule {
 	@Contribute(ComponentClassTransformWorker2.class)
 	public static void contributeWorkers(OrderedConfiguration<ComponentClassTransformWorker2> configuration) {
 		configuration.addInstance("CSRF", CsrfWorker.class);
-	}
-
-	/** 	 
-	 * Dar soporte transaccional a los servicios que cumplan los patrones (los advices
-	 * se aplican a los métodos de una interfaz).
-	 */
-	@Match({ "*DAO" })
-	public static void adviseTransaction(TransactionAdvisor advisor, MethodAdviceReceiver receiver) {
-		advisor.addAdvice(receiver);
 	}
 }
