@@ -1,0 +1,134 @@
+import java.text.SimpleDateFormat
+
+description = 'HelloWorldTapestry5GAE'
+version = '0.0.2'
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'war'
+
+//Eclipse
+ext.downloadJavadoc = true
+
+// Java
+sourceCompatibility = 1.6
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        resources {
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+repositories {	
+	flatDir name: 'Local', dirs: 'misc/lib'
+	mavenRepo name: 'Apache (Staging)', url: 'https://repository.apache.org/content/groups/staging/'
+	mavenRepo name: 'JBoss', url: 'https://repository.jboss.org/nexus/content/repositories/releases/'
+	mavenRepo name: 'Java', url: 'http://download.java.net/maven/2/'
+    mavenCentral()
+}
+
+configurations {
+    pmd
+}
+
+dependencies {
+	compile 'org.apache.tapestry:tapestry5-annotations:5.3.4'
+	compile 'org.apache.tapestry:tapestry-core:5.3.4'
+	
+	compile 'org.codehaus.groovy:groovy-all:1.8.6'
+	compile 'com.google.appengine:appengine-api-1.0-sdk:1.7.0'
+
+	providedCompile 'javax.servlet:servlet-api:2.5'
+
+	pmd 'net.sourceforge.pmd:pmd:5.0.0'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.0'
+}
+
+clean << {
+	ant.delete(dir:'bin/')
+	ant.delete(dir:'build/')
+	ant.delete(dir:'src/main/webapp/WEB-INF/classes')
+	ant.delete(dir:'src/main/webapp/WEB-INF/lib')
+}
+
+task compileAll << {
+	ant.mkdir(dir:'build/classes/main/')
+	ant.taskdef(name: 'groovyc', classname: 'org.codehaus.groovy.ant.Groovyc', classpath: configurations.compile.asPath)
+	ant.javac(srcdir: 'src/main/java',
+			destdir: 'build/classes/main',
+			classpath: configurations.compile.asPath,
+			source: '1.5',
+			debug: 'on',
+			includeAntRuntime: 'false')
+	ant.groovyc(srcdir: 'src/main/java',
+			destdir: 'build/classes/main',
+			classpath: configurations.compile.asPath) {
+		javac(source: '1.5', debug: 'on')
+	}
+}
+
+task pmd << {
+	ant.mkdir(dir:'build/pmd')
+	ant.taskdef(name: 'pmd', classname: 'net.sourceforge.pmd.ant.PMDTask', classpath: project.configurations.pmd.asPath)
+	ant.pmd {
+		ruleset('java-basic,java-braces,java-codesize,java-naming,java-optimizations,java-unusedcode')
+		formatter(type: 'html', toFile: 'build/pmd/pmd.html')
+		fileset(dir: 'src/main/java') {
+			include(name: '**/*.java')
+		}
+	}
+}
+
+task copyResources(dependsOn: [processResources]) << {
+	ant.copy(todir: 'src/main/webapp/WEB-INF/classes') {
+		fileset(dir: 'build/resources/main')
+	}
+}
+
+task copyClasses(dependsOn: [compileAll]) << {
+	ant.mkdir(dir:'src/main/webapp/WEB-INF/classes')
+	ant.copy(todir: 'src/main/webapp/WEB-INF/classes') {
+		fileset(dir: 'build/classes/main')
+	}
+}
+
+task copyLibs << {
+	ant.mkdir(dir:'src/main/webapp/WEB-INF/lib')
+	ant.delete {
+		fileset(dir: 'src/main/webapp/WEB-INF/lib') {
+			include(name: '*')
+		}
+	}
+	configurations.runtime.each { File file ->
+		ant.copy(todir: 'src/main/webapp/WEB-INF/lib', file: file)
+	}
+	ant.delete {
+		fileset(dir: 'src/main/webapp/WEB-INF/lib') {
+			include(name: 'selenium-*')
+			include(name: 'catalina-*')
+			include(name: 'coyote-*')
+			include(name: 'jetty-*')
+			include(name: 'org.mortbay.jetty-*')
+			include(name: 'geronimo-*')
+			include(name: 'activation-*')
+			include(name: 'mail-*')
+			include(name: 'servlet-*')
+			include(name: 'WEB-INF/lib/junit-*')
+			include(name: 'WEB-INF/lib/testng-*')
+		}
+	}
+}
+
+task copyAll(dependsOn: [copyResources, copyClasses, copyLibs]) << {
+}

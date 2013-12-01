@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<meta name="author" content="pico.dev"/>
+	<meta name="description" content="Aplicacion de ejemplo Hola mundo con Apache Tapestry 5 en el Google App Engine"/>
+	<title>Hola mundo Tapestry con Groovy!!!</title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu&amp;v1' rel='stylesheet' type='text/css'/>
+	<style type="text/css">
+		body {
+			font-family: 'Ubuntu', arial, serif;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+    <img src="${context:images/tapestry.png}" alt="Apache Tapestry 5" title="Apache Tapestry 5"/><br/>
+    Version: <b>${tapestryVersion}</b><br/>
+    <br/>
+	
+	<t:descripcionGroovy/>
+    <br/>
+    <br/>
+
+    <b><t:holaMundoGroovy/></b>
+    <br/>
+    <br/>
+    
+    <t:relojGroovy t:id="reloj"/>	
+	<br/>
+	<br/>
+
+    <img src="${context:images/appengine-noborder-120x30.gif}" alt="Google App Engine" title="Google App Engine"/>	
+</body>
+</html>

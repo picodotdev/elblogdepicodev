@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<t:container xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+    <p>Esta aplicacion es un ejemplo de como hacer funcionar <a href="http://tapestry.apache.org/">Apache Tapestry 5</a> en el <a href="http://code.google.com/intl/es-ES/appengine/">Google App Engine</a>.</p>
+    <p>Tambien muestra que usar <a href="http://groovy.codehaus.org/">Groovy</a> como lenguaje de programacion para una aplicacion Apache Tapestry (o cualquier otro que soporte la JVM) es posible incluso en el Google App Engine.</p>
+    <t:if test="enPaginaJava()">
+        <p>Esta es la pagina programada con el lenguaje <b>Java</b>. Puedes ver la misma <a t:type="pagelink" page="IndexGroovy">pagina programada con Groovy</a>.</p>
+    	<p:else>
+    	    <p>Esta es la pagina programada con el lenguaje <b>Groovy</b>. Puedes ver la misma <a t:type="pagelink" page="Index">pagina programada con Java</a>.</p>
+    	</p:else>
+    </t:if> 
+    <p>Si quieres descargar el <a href="https://github.com/picodotdev/HelloWorldTapestry5GAE">codigo fuente</a> puedes hacerlo desde el enlace anterior. Y si quieres ver mas ejemplos de Apache Tapestry 5 y su codigo fuente puedes visitar la aplicacion <a href="http://jumpstart.doublenegative.com.au/jumpstart/">Jumpstart</a>.</p>
+</t:container>
