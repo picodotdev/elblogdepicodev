@@ -29,171 +29,163 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO;
  */
 public class ProductoAdmin {
 
-	 private enum Modo {
-		  ALTA, EDICION, LISTA
-	 }
+	private enum Modo {
+		ALTA, EDICION, LISTA
+	}
 
-	 @Inject
-	 private ProductoDAO dao;
+	@Inject
+	private ProductoDAO dao;
 
-	 @Inject
-	 private Session session;
-	 
-	 @Inject
-	 @Symbol(SymbolConstants.TAPESTRY_VERSION)
-	 @Property
-	 private String tapestryVersion;
+	@Inject
+	private Session session;
 
-	 @Inject
-	 private TranslatorSource translatorSource;
+	@Inject
+	@Symbol(SymbolConstants.TAPESTRY_VERSION)
+	@Property
+	private String tapestryVersion;
 
-	 @Inject
-	 private BeanModelSource beanModelSource;
+	@Inject
+	private TranslatorSource translatorSource;
 
-	 @Inject
-	 private Block edicionBlock, listaBlock;
+	@Inject
+	private BeanModelSource beanModelSource;
 
-	 @Inject
-	 private ComponentResources resources;
+	@Inject
+	private Block edicionBlock, listaBlock;
 
-	 @Component
-	 private Form form;
+	@Inject
+	private ComponentResources resources;
 
-	 private Modo modo;
+	@Component
+	private Form form;
 
-	 @Property
-	 private Producto producto;
+	private Modo modo;
 
-	 void onActivate(Long id, Modo modo) {
-		  setModo((modo == null) ? Modo.LISTA : modo, (id == null) ? null : dao.findById(id));
-	 }
+	@Property
+	private Producto producto;
 
-	 Object[] onPassivate() {
-		  return new Object[] { (producto == null) ? null : producto.getId(), (modo == null) ? null : modo.toString().toLowerCase() };
-	 }
+	void onActivate(Long id, Modo modo) {
+		setModo((modo == null) ? Modo.LISTA : modo, (id == null) ? null : dao.findById(id));
+	}
 
-	 void setupRender() {
-		  if (modo == null) {
-				setModo(Modo.LISTA, null);
-		  }
-	 }
+	Object[] onPassivate() {
+		return new Object[] { (producto == null) ? null : producto.getId(), (modo == null) ? null : modo.toString().toLowerCase() };
+	}
 
-	 void onPrepareForSubmitFromForm() {
-		  onPrepareForSubmitFromForm(null);
-	 }
+	void setupRender() {
+		if (modo == null) {
+			setModo(Modo.LISTA, null);
+		}
+	}
 
-	 void onPrepareForSubmitFromForm(Long id) {
-		  if (id != null) {
-				// Si se envía un id se trata de una edición, buscarlo
-				producto = dao.findById(id);
-		  }
-		  if (producto == null) {
-				producto = new Producto();
-		  }
-	 }
+	void onPrepareForSubmitFromForm(Long id) {
+		if (id != null) {
+			// Si se envía un id se trata de una edición, buscarlo
+			producto = dao.findById(id);
+		}
+		if (producto == null) {
+			producto = new Producto();
+		}
+	}
 
-	 Object onCanceledFromForm() {
-		  setModo(Modo.LISTA, null);
-		  return ProductoAdmin.class;
-	 }
+	Object onCanceledFromForm() {
+		setModo(Modo.LISTA, null);
+		return ProductoAdmin.class;
+	}
 
-	 void onSuccessFromForm() {
-		  dao.persist(producto);
+	void onSuccessFromForm() {
+		dao.persist(producto);
 
-		  setModo(Modo.LISTA, null);
-	 }
+		setModo(Modo.LISTA, null);
+	}
 
-	 void onNuevo() {
-		  setModo(Modo.ALTA, null);
-	 }
+	void onNuevo() {
+		setModo(Modo.ALTA, null);
+	}
 
-	 void onEditar(Long id) {
-		  setModo(Modo.EDICION, dao.findById(id));
-	 }
+	void onEliminarTodos() {
+		dao.removeAll();
+		setModo(Modo.LISTA, null);
+	}
 
-	 void onEliminarTodos() {
-		  dao.removeAll();
-		  setModo(Modo.LISTA, null);
-	 }
+	void onEliminar(Long id) {
+		producto = dao.findById(id);
+		dao.remove(producto);
 
-	 void onEliminar(Long id) {
-		  producto = dao.findById(id);
-		  dao.remove(producto);
+		setModo(Modo.LISTA, null);
+	}
 
-		  setModo(Modo.LISTA, null);
-	 }
+	public boolean hasProductos() {
+		return getSource().getAvailableRows() > 0;
+	}
 
-	 public boolean hasProductos() {
-		  return getSource().getAvailableRows() > 0;
-	 }
+	public GridDataSource getSource() {
+		return new HibernateGridDataSource(session, Producto.class) {
+			@Override
+			public List find(Pagination pagination) {
+				return dao.findAll(pagination);
+			}
+		};
+	}
 
-	 public GridDataSource getSource() {
-		  return new HibernateGridDataSource(session, Producto.class) {
-				@Override
-				public List find(Pagination pagination) {
-					 return dao.findAll(pagination);
-				}
-		  };
-	 }
+	public BeanModel<Producto> getModel() {
+		BeanModel<Producto> model = beanModelSource.createDisplayModel(Producto.class, resources.getMessages());
+		model.exclude("id");
+		model.add("action", null).label("").sortable(false);
+		return model;
+	}
 
-	 public BeanModel<Producto> getModel() {
-		  BeanModel<Producto> model = beanModelSource.createDisplayModel(Producto.class, resources.getMessages());
-		  model.exclude("id");
-		  model.add("action", null).label("").sortable(false);
-		  return model;
-	 }
-
-	 public Block getBlock() {
-		  switch (modo) {
-		  case ALTA:
-		  case EDICION:
+	public Block getBlock() {
+		switch (modo) {
+			case ALTA:
+			case EDICION:
 				return edicionBlock;
-		  default:
-		  case LISTA:
+			default:
+			case LISTA:
 				return listaBlock;
-		  }
-	 }
-
-	 // La anotacion @Cached permite cachar el resultado de un método de forma
-	 // que solo se evalúe
-	 // una vez independientemente del número de veces que se llame en la
-	 // plantilla de visualización.
-	 @Cached
-	 public Map<String, String> getLabels() {
-		  Map<String, String> m = new HashMap<String, String>();
-		  switch (modo) {
-		  case ALTA:
+		}
+	}
+	
+	// La anotacion @Cached permite cachar el resultado de un método de forma
+	// que solo se evalúe
+	// una vez independientemente del número de veces que se llame en la
+	// plantilla de visualización.
+	@Cached
+	public Map<String, String> getLabels() {
+		Map<String, String> m = new HashMap<String, String>();
+		switch (modo) {
+			case ALTA:
 				m.put("titulo", "Alta producto");
 				m.put("guardar", "Crear producto");
 				break;
-		  case EDICION:
+			case EDICION:
 				m.put("titulo", "Modificación producto");
 				m.put("guardar", "Modificar producto");
 				break;
-		  default:
-		  }
-		  return m;
-	 }
+			default:
+		}
+		return m;
+	}
 
-	 private void setModo(Modo modo, Producto producto) {
-		  switch (modo) {
-		  case ALTA:
+	private void setModo(Modo modo, Producto producto) {
+		switch (modo) {
+			case ALTA:
 				this.producto = new Producto();
 				break;
-		  case EDICION:
+			case EDICION:
 				if (producto == null) {
-					 modo = Modo.ALTA;
-					 this.producto = new Producto();
+					modo = Modo.ALTA;
+					this.producto = new Producto();
 				} else {
-					 this.producto = producto;
+					this.producto = producto;
 				}
 				break;
-		  default:
-		  case LISTA:
+			default:
+			case LISTA:
 				this.producto = null;
 				break;
 
-		  }
-		  this.modo = modo;
-	 }
+		}
+		this.modo = modo;
+	}
 }

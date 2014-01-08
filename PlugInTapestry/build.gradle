@@ -56,17 +56,17 @@ sourceSets {
 
 dependencies {
     // Tapestry
-    compile 'org.apache.tapestry:tapestry-core:5.4-alpha-23'
-    compile 'org.apache.tapestry:tapestry-hibernate:5.4-alpha-23'
-    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-alpha-23'
+    compile 'org.apache.tapestry:tapestry-core:5.4-beta-2'
+    compile 'org.apache.tapestry:tapestry-hibernate:5.4-beta-2'
+    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-beta-2'
 
     // Compresión automática de javascript y css en el modo producción
-    compile 'org.apache.tapestry:tapestry-webresources:5.4-alpha-23'
+    compile 'org.apache.tapestry:tapestry-webresources:5.4-beta-2'
 
-    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-alpha-23'
+    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-beta-2'
     
     // Spring
-    compile ('org.apache.tapestry:tapestry-spring:5.4-alpha-23') {
+    compile ('org.apache.tapestry:tapestry-spring:5.4-beta-2') {
     	exclude(group: 'org.springframework')
     }
     compile 'org.springframework:spring-web:3.2.4.RELEASE'
@@ -86,7 +86,7 @@ dependencies {
     compile 'org.apache.shiro:shiro-all:1.2.2'
     
     // Pruebas unitarias
-    testCompile('org.apache.tapestry:tapestry-test:5.4-alpha-23') {
+    testCompile('org.apache.tapestry:tapestry-test:5.4-beta-2') {
        exclude(group: 'org.testng')
     }
     testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
@@ -112,7 +112,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.8'
+	gradleVersion = '1.10'
 }
 
 test {

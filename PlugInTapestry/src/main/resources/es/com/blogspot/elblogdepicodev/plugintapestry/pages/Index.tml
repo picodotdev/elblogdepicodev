@@ -133,7 +133,7 @@
 		<h4>Solución al CSRF</h4>
 		<p>
 			Cuenta: <t:zone t:id="csrfZone" id="csrfZone" elementName="span">${cuenta}</t:zone>
-		
+
 			<div class="row">
 				<div class="col-md-4">
 					<h5>En formulario</h5>

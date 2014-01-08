@@ -7,7 +7,7 @@
 	<h1>Lista de productos</h1>
 	<t:grid source="source" row="producto" model="model" rowsPerPage="2" lean="true" inPlace="true" class="table table-bordered table-condensed">
 		<p:nombreCell>
-			<t:eventlink event="editar" context="producto.id">${producto.nombre}</t:eventlink>
+			<t:pagelink page="admin/producto" context="[producto.id, 'edicion']">${producto.nombre}</t:pagelink>
 		</p:nombreCell>
 		<p:actionCell>
 			<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger" style="color: white;">Eliminar</t:eventlink>

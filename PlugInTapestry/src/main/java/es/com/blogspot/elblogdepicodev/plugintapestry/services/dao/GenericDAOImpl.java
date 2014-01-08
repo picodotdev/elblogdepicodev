@@ -69,7 +69,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void persist(T object) {
-		sessionFactory.getCurrentSession().persist(object);
+		sessionFactory.getCurrentSession().saveOrUpdate(object);
 	}
 
 	@Override

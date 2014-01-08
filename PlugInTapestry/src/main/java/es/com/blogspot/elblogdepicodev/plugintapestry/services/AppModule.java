@@ -74,7 +74,7 @@ public class AppModule {
 	}
 
 	public static void contributeModuleManager(MappedConfiguration<String, Object> configuration, @Path("classpath:META-INF/assets/app/jquery-library.js") Resource jQuery) {
-		configuration.override("jquery-library", new JavaScriptModuleConfiguration(jQuery));
+		configuration.override("jquery", new JavaScriptModuleConfiguration(jQuery));
 	}
 
 	public static void contributeBeanValidatorSource(OrderedConfiguration<BeanValidatorConfigurer> configuration) {
