@@ -7,7 +7,7 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.dao.ProductoDAO
 
 import spock.lang.Specification
 
-class NumeroProductosTest extends Specification {
+class NumeroProductosSpec extends Specification {
 
     def conNombre() {
         setup:

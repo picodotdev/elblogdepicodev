@@ -20,7 +20,7 @@
 	<div class="col-lg-6">
 		<h4>Componentes básicos</h4>
 		<p>
-			<t:holaMundo />
+			<t:holaMundo>[Texto que no se mostrará]</t:holaMundo>
 			(Componente sin plantilla)
 		</p>
 		<p>
