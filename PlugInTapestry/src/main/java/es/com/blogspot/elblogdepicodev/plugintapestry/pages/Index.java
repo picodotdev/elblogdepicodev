@@ -89,7 +89,9 @@ public class Index {
 	/**
 	 * Evento que suma uno a la cuenta (via Ajax).
 	 */
-	void onActionFromSumar1CuentaAjax() {
+	void onActionFromSumar1CuentaAjax() throws Exception {
+		// if (1 == 1) throw new Exception("Sí, ese enlace produce una excepción");
+		
 		cuenta += 1;
 		// Actualizar una zona
 		// return zone.getBody()
