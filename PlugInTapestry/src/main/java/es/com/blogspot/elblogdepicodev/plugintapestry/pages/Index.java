@@ -1,5 +1,8 @@
 package es.com.blogspot.elblogdepicodev.plugintapestry.pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.web.subject.support.WebDelegatingSubject;
@@ -30,6 +33,10 @@ public class Index {
 	@Property
 	private Producto producto;
 
+	@Property
+	@Persist(value = PersistenceConstants.FLASH)
+	private List colores;
+
 	@Component
 	private Zone zone;
 
@@ -58,6 +65,9 @@ public class Index {
 		if (cuenta == null) {
 			// Iniciarlizar el valor de la cuenta al cargar la página
 			cuenta = 0l;
+		}
+		if (colores == null) {
+			colores = new ArrayList();			
 		}
 	}
 
@@ -91,13 +101,17 @@ public class Index {
 	 */
 	void onActionFromSumar1CuentaAjax() throws Exception {
 		// if (1 == 1) throw new Exception("Sí, ese enlace produce una excepción");
-		
+
 		cuenta += 1;
 		// Actualizar una zona
 		// return zone.getBody()
 		// Actualizar varias zonas
 		renderer.addRender("zone", zone).addRender("submitOneZone", submitOneZone).addRender("csrfZone", csrfZone);
 	}
+	
+    void onPrepareForSubmitFromColoresForm() {
+    	colores = new ArrayList();
+    }
 
 	void onSumar1CuentaSubmitOne() throws Exception {
 		Thread.sleep(3000);

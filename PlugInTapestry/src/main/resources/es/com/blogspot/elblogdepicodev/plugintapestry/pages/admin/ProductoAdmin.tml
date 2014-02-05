@@ -33,7 +33,7 @@
 	<h1>${labels.get('titulo')}</h1>
 
 	<t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="well" role="form">
-		<t:errors class="literal:alert alert-error" />
+		<t:errors class="literal:alert alert-danger" />
 
 		<div class="form-group">
 			<t:label for="nombre" />

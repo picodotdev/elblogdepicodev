@@ -87,6 +87,21 @@
 			<a t:type="pageLink" page="admin/producto">Mantenimiento CRUD</a> de una entidad persistente en una base de datos relacional.
 		</p>
 		
+		<h4>Componente selector de elementos</h4>
+		<p>
+			<t:form t:id="coloresForm" clientValidation="none" class="well" role="form">
+				<t:errors class="literal:alert alert-danger" />
+
+				<div class="form-group">
+					<t:listselect values="colores" model="['Rojo','Azul','Verde']"/>
+				</div>
+				<div class="form-group">
+					Colores seleccionados: ${colores}
+				</div>
+				<t:submit value="Seleccionar"/>
+			</t:form>
+		</p>
+		
 		<h4>Solución al doble o N clic con Mixin</h4>
 		<p>
         	Cuenta: <t:zone t:id="submitOneZone" id="submitOneZone" elementName="span">${cuenta}</t:zone>
