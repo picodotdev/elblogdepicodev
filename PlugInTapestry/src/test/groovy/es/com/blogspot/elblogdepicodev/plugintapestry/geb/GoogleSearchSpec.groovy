@@ -1,4 +1,4 @@
-package es.com.blogspot.elblogdepicodev.test.geb
+package es.com.blogspot.elblogdepicodev.plugintapestry.geb
 
 import geb.Page
 import geb.spock.GebSpec
