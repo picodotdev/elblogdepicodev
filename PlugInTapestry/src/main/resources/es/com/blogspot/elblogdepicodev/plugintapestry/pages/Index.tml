@@ -77,7 +77,7 @@
 	</div>
 
 	<div class="col-lg-6">
-		<h4>Internacionalización (i18n) y localizacion (i10n)</h4>
+		<h4>Internacionalización (i18n) y localizacion (l10n)</h4>
 		<p>
 			${message:Este_mensaje_esta_localizado_}<br /> Prueba a cambiar al idioma inglés (en) en las preferencias de tu nevegador.
 		</p>
