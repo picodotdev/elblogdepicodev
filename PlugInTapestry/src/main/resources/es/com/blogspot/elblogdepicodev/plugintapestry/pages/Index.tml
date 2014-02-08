@@ -87,7 +87,7 @@
 			<a t:type="pageLink" page="admin/producto">Mantenimiento CRUD</a> de una entidad persistente en una base de datos relacional.
 		</p>
 		
-		<h4>Componente selector de elementos</h4>
+		<h4>Componente selector de elementos *</h4>
 		<p>
 			<t:form t:id="coloresForm" clientValidation="none" class="well" role="form">
 				<t:errors class="literal:alert alert-danger" />
@@ -100,6 +100,9 @@
 				</div>
 				<t:submit value="Seleccionar"/>
 			</t:form>
+			
+			* Ver componente <a href="http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/corelib/components/Checklist.html">CheckList</a> que ya 
+			tiene una funcionalidad	similar y más completa.
 		</p>
 		
 		<h4>Solución al doble o N clic con Mixin</h4>
