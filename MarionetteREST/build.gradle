@@ -2,7 +2,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.tasks.Exec
 
 description = 'MarionetteREST'
-version = '0.0.1'
+version = '0.1'
 
 apply plugin: 'eclipse'
 apply plugin: 'java'
@@ -22,13 +22,18 @@ buildscript {
 }
 
 repositories {	
-    mavenRepo name: 'JBoss Thirdparty', url: 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases'
     mavenCentral()
+
+    // All things JBoss/Hibernate
+    maven {
+    	name 'JBoss'
+    	url 'http://repository.jboss.org/nexus/content/groups/public/'
+    }
 }
 
 dependencies {
-	compile 'org.apache.tapestry:tapestry5-annotations:5.3.7'
 	compile 'org.apache.tapestry:tapestry-core:5.3.7'
+	compile 'org.apache.tapestry:tapestry5-annotations:5.3.7'
 	
 	compile 'org.jboss.resteasy:jaxrs-api:2.3.5.Final'
 	compile 'org.jboss.resteasy:resteasy-jaxrs:2.3.5.Final'
@@ -49,7 +54,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.7'
+	gradleVersion = '1.10'
 }
 
 task jasmine(type: GruntTask) {
