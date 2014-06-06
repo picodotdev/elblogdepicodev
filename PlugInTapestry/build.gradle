@@ -56,17 +56,17 @@ sourceSets {
 
 dependencies {
     // Tapestry
-    compile 'org.apache.tapestry:tapestry-core:5.4-beta-2'
-    compile 'org.apache.tapestry:tapestry-hibernate:5.4-beta-2'
-    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-beta-2'
+    compile 'org.apache.tapestry:tapestry-core:5.4-beta-3'
+    compile 'org.apache.tapestry:tapestry-hibernate:5.4-beta-3'
+    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-beta-3'
 
     // Compresión automática de javascript y css en el modo producción
-    compile 'org.apache.tapestry:tapestry-webresources:5.4-beta-2'
+    compile 'org.apache.tapestry:tapestry-webresources:5.4-beta-3'
 
-    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-beta-2'
+    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-beta-3'
     
     // Spring
-    compile ('org.apache.tapestry:tapestry-spring:5.4-beta-2') {
+    compile ('org.apache.tapestry:tapestry-spring:5.4-beta-3') {
     	exclude(group: 'org.springframework')
     }
     compile 'org.springframework:spring-web:3.2.4.RELEASE'
@@ -85,8 +85,10 @@ dependencies {
     }
     compile 'org.apache.shiro:shiro-all:1.2.2'
     
+	compile 'com.google.guava:guava:16.0.1'
+    
     // Pruebas unitarias
-    testCompile('org.apache.tapestry:tapestry-test:5.4-beta-2') {
+    testCompile('org.apache.tapestry:tapestry-test:5.4-beta-3') {
        exclude(group: 'org.testng')
     }
     testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
@@ -100,8 +102,10 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0' 
 
 	// Runtime
+	providedCompile 'org.jboss:jboss-vfs:3.2.1.Final'
     provided 'javax.servlet:javax.servlet-api:3.1.0'    
-    runtime "org.slf4j:slf4j-log4j12:1.7.5"
+    runtime 'org.slf4j:slf4j-log4j12:1.7.5'
+    runtime 'org.jboss.logging:jboss-logging:3.1.4.GA'
 
 	// Tomcat embebido
     tomcat 'org.apache.tomcat.embed:tomcat-embed-core:7.0.42'

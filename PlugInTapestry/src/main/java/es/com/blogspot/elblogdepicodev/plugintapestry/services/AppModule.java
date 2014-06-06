@@ -3,6 +3,8 @@ package es.com.blogspot.elblogdepicodev.plugintapestry.services;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
+
 import org.apache.shiro.realm.Realm;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.Path;
@@ -15,19 +17,26 @@ import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.services.ClasspathURLConverter;
 import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
+import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.PlugInStack;
+import es.com.blogspot.elblogdepicodev.plugintapestry.misc.WildFlyClasspathURLConverter;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.hibernate.HibernateSessionSourceImpl;
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.workers.CsrfWorker;
 
 public class AppModule {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AppModule.class);
 
 	public static void bind(ServiceBinder binder) {
 		// Añadir al contenedor de dependencias nuestros servicios, se proporciona la interfaz y la
@@ -46,8 +55,12 @@ public class AppModule {
 
 	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @Local HibernateSessionSource hibernateSessionSource) {
 		configuration.add(HibernateSessionSource.class, hibernateSessionSource);
+		
+//		if (isServidorJBoss(ContextListener.SERVLET_CONTEXT)) {
+//			configuration.add(ClasspathURLConverter.class, new WildFlyClasspathURLConverter());			
+//		}
 	}
-
+	
 	public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration) {
 		configuration.add(SymbolConstants.HMAC_PASSPHRASE, UUID.randomUUID().toString());
 
@@ -84,7 +97,7 @@ public class AppModule {
 			}
 		});
 	}
-
+	
 	public static void contributeJavaScriptStackSource(MappedConfiguration<String, JavaScriptStack> configuration) {
 		configuration.addInstance("plugin", PlugInStack.class);
 	}
@@ -92,5 +105,15 @@ public class AppModule {
 	@Contribute(ComponentClassTransformWorker2.class)
 	public static void contributeWorkers(OrderedConfiguration<ComponentClassTransformWorker2> configuration) {
 		configuration.addInstance("CSRF", CsrfWorker.class);
+	}
+	
+	private static boolean isServidorJBoss(ServletContext context) {
+		String si = context.getServerInfo();
+
+		if (si.contains("WildFly") || si.contains("JBoss")) {
+			return true;
+		}
+		
+		return false;
 	}
 }
