@@ -56,9 +56,9 @@ public class AppModule {
 	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @Local HibernateSessionSource hibernateSessionSource) {
 		configuration.add(HibernateSessionSource.class, hibernateSessionSource);
 		
-//		if (isServidorJBoss(ContextListener.SERVLET_CONTEXT)) {
-//			configuration.add(ClasspathURLConverter.class, new WildFlyClasspathURLConverter());			
-//		}
+		if (isServidorJBoss(ContextListener.SERVLET_CONTEXT)) {
+			configuration.add(ClasspathURLConverter.class, new WildFlyClasspathURLConverter());			
+		}
 	}
 	
 	public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration) {
