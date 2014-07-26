@@ -18,6 +18,7 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.ioc.services.ClasspathURLConverter;
+import org.apache.tapestry5.services.AssetPathConverter;
 import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
@@ -27,6 +28,7 @@ import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
+import es.com.blogspot.elblogdepicodev.plugintapestry.misc.CDNAssetPathConverterImpl;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.PlugInStack;
@@ -35,8 +37,13 @@ import es.com.blogspot.elblogdepicodev.plugintapestry.services.hibernate.Hiberna
 import es.com.blogspot.elblogdepicodev.plugintapestry.services.workers.CsrfWorker;
 
 public class AppModule {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(AppModule.class);
+
+	public static final String CDN_DOMAIN_PROTOCOL = "cdn.protocol";
+	public static final String CDN_DOMAIN_HOST = "cdn.host";
+	public static final String CDN_DOMAIN_PORT = "cdn.port";
+	public static final String CDN_DOMAIN_PATH = "cdn.path";
 
 	public static void bind(ServiceBinder binder) {
 		// Añadir al contenedor de dependencias nuestros servicios, se proporciona la interfaz y la
@@ -44,23 +51,27 @@ public class AppModule {
 		// dependencias.
 		// binder.bind(Sevicio.class, ServicioImpl.class);
 
-		// Servicios de persistencia (definidos en Spring por la necesidad de que Spring gestione las transacciones)
+		// Servicios de persistencia (definidos en Spring por la necesidad de que Spring gestione
+		// las transacciones)
 		// binder.bind(ProductoDAO.class, ProductoDAOImpl.class);
 	}
 
-	// Servicio que delega en Spring la inicialización de Hibernate, solo obtiene la configuración de Hibernate creada por Spring
+	// Servicio que delega en Spring la inicialización de Hibernate, solo obtiene la configuración
+	// de Hibernate creada por Spring
 	public static HibernateSessionSource buildAppHibernateSessionSource(ApplicationContext context) {
 		return new HibernateSessionSourceImpl(context);
 	}
 
 	public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration, @Local HibernateSessionSource hibernateSessionSource) {
 		configuration.add(HibernateSessionSource.class, hibernateSessionSource);
-		
+		// Servicio para usar un CDN lazy, pe. con Amazon CloudFront
+		//configuration.addInstance(AssetPathConverter.class, CDNAssetPathConverterImpl.class);
+
 		if (isServidorJBoss(ContextListener.SERVLET_CONTEXT)) {
-			configuration.add(ClasspathURLConverter.class, new WildFlyClasspathURLConverter());			
+			configuration.add(ClasspathURLConverter.class, new WildFlyClasspathURLConverter());
 		}
 	}
-	
+
 	public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration) {
 		configuration.add(SymbolConstants.HMAC_PASSPHRASE, UUID.randomUUID().toString());
 
@@ -75,6 +86,11 @@ public class AppModule {
 		configuration.add(SymbolConstants.APPLICATION_VERSION, "1.0");
 
 		configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER, "jquery");
+
+		configuration.add(CDN_DOMAIN_PROTOCOL, "http");
+		configuration.add(CDN_DOMAIN_HOST, "s3-eu-west-1.amazonaws.com");
+		configuration.add(CDN_DOMAIN_PORT, "");
+		configuration.add(CDN_DOMAIN_PATH, "cdn-plugintapestry");
 	}
 
 	public static void contributeWebSecurityManager(Configuration<Realm> configuration) {
@@ -97,7 +113,7 @@ public class AppModule {
 			}
 		});
 	}
-	
+
 	public static void contributeJavaScriptStackSource(MappedConfiguration<String, JavaScriptStack> configuration) {
 		configuration.addInstance("plugin", PlugInStack.class);
 	}
@@ -106,14 +122,14 @@ public class AppModule {
 	public static void contributeWorkers(OrderedConfiguration<ComponentClassTransformWorker2> configuration) {
 		configuration.addInstance("CSRF", CsrfWorker.class);
 	}
-	
+
 	private static boolean isServidorJBoss(ServletContext context) {
 		String si = context.getServerInfo();
 
 		if (si.contains("WildFly") || si.contains("JBoss")) {
 			return true;
 		}
-		
+
 		return false;
 	}
 }
