@@ -18,7 +18,6 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.ioc.services.ClasspathURLConverter;
-import org.apache.tapestry5.services.AssetPathConverter;
 import org.apache.tapestry5.services.javascript.JavaScriptModuleConfiguration;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
@@ -28,7 +27,6 @@ import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
-import es.com.blogspot.elblogdepicodev.plugintapestry.misc.CDNAssetPathConverterImpl;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.PlugInStack;
@@ -82,6 +80,11 @@ public class AppModule {
 		configuration.add(SecuritySymbols.SUCCESS_URL, "/index");
 		configuration.add(SecuritySymbols.UNAUTHORIZED_URL, "/unauthorized");
 		configuration.add(SecuritySymbols.REDIRECT_TO_SAVED_URL, "true");
+		
+		configuration.add(SymbolConstants.SECURE_ENABLED, true);
+		configuration.add(SymbolConstants.HOSTPORT, 8080);
+		configuration.add(SymbolConstants.HOSTPORT_SECURE, 8443);
+		configuration.add(SymbolConstants.ENABLE_PAGELOADING_MASK, false);
 
 		configuration.add(SymbolConstants.APPLICATION_VERSION, "1.0");
 
@@ -124,6 +127,10 @@ public class AppModule {
 	}
 
 	private static boolean isServidorJBoss(ServletContext context) {
+		if (context == null) {
+			return false;
+		}
+		
 		String si = context.getServerInfo();
 
 		if (si.contains("WildFly") || si.contains("JBoss")) {
