@@ -51,7 +51,8 @@ public class ProductoAdmin {
 	private BeanModelSource beanModelSource;
 
 	@Inject
-	private Block edicionBlock, listaBlock;
+	@Property
+	private Block listaBlock, edicionBlock, botonesEdicionBlock;
 
 	@Inject
 	private ComponentResources resources;

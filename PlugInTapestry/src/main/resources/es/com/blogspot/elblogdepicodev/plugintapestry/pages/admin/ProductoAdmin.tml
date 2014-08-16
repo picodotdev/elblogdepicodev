@@ -37,45 +37,53 @@
 	<t:form t:id="form" context="producto.id" validate="producto" clientValidation="none" class="well" role="form">
 		<t:errors class="literal:alert alert-danger" />
 
-		<div class="form-group">
-			<t:label for="nombre" />
-			<div class="controls">
-				<input t:type="textfield" t:id="nombre" value="producto.nombre" size="100" label="Nombre" />
+		<t:delegate to="botonesEdicionBlock"/>
+
+		<div style="margin-top: 10px;">
+			<div class="form-group">
+				<t:label for="nombre" />
+				<div class="controls">
+					<input t:type="textfield" t:id="nombre" value="producto.nombre" size="100" label="Nombre" />
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<t:label for="descripcion" />
+				<div class="controls">
+					<input t:type="textarea" t:id="descripcion" value="producto.descripcion" label="Descripción" />
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<t:label for="cantidad" />
+				<div class="controls">
+					<input t:type="textfield" t:id="cantidad" value="producto.cantidad" size="4" label="Cantidad" class="numeric"/>
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<t:label for="fecha" />
+				<div class="controls">
+					<div class="input-group">
+						<input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>				
+				</div>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<t:label for="descripcion" />
-			<div class="controls">
-				<input t:type="textarea" t:id="descripcion" value="producto.descripcion" label="Descripción" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<t:label for="cantidad" />
-			<div class="controls">
-				<input t:type="textfield" t:id="cantidad" value="producto.cantidad" size="4" label="Cantidad" class="numeric"/>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<t:label for="fecha" />
-			<div class="controls">
-				<div class="input-group">
-					<input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha" />
-					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-				</div>				
-			</div>
-		</div>
-
-		<div class="btn-toolbar">
-			<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" role="button"/>
-			<t:if test="producto.id">
-				<a t:type="eventlink" event="eliminar" context="producto.id" role="button" class="btn btn-danger" style="color: white;">Eliminar</a>
-			</t:if>
-			<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" role="button"/>
-		</div>
+		<t:delegate to="botonesEdicionBlock"/>
 	</t:form>
+</t:block>
+
+<t:block id="botonesEdicionBlock">
+	<div class="btn-toolbar">
+		<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" role="button"/>
+		<t:if test="producto.id">
+			<a t:type="eventlink" event="eliminar" context="producto.id" role="button" class="btn btn-danger" style="color: white;">Eliminar</a>
+		</t:if>
+		<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" role="button"/>
+	</div>
 </t:block>
 
 </html>
