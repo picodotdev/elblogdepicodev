@@ -9,7 +9,7 @@
 <link href="http://fonts.googleapis.com/css?family=Cantarell:400,700" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<div class="container-narrow">
+	<div class="container">
 		<div class="masthead">
 			<ul class="nav nav-pills pull-right">
 				<li><a t:type="pageLink" page="index">Inicio</a></li>
@@ -19,7 +19,7 @@
 
 		<hr />
 
-		<div class="row-fluid marketing">
+		<div class="row">
 			<t:body />
 		</div>
 

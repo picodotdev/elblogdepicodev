@@ -10,16 +10,18 @@
 			<t:pagelink page="admin/producto" context="[producto.id, 'edicion']">${producto.nombre}</t:pagelink>
 		</p:nombreCell>
 		<p:actionCell>
-			<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger" style="color: white;">Eliminar</t:eventlink>
+			<t:eventlink event="eliminar" context="producto.id" class="btn btn-danger btn-xs" style="color: white;">Eliminar</t:eventlink>
 		</p:actionCell>
 		<p:empty>
 			<p>No hay productos.</p>
 		</p:empty>
 	</t:grid>
-	<t:eventlink event="nuevo" class="btn btn-primary" style="color: white;">Nuevo producto</t:eventlink>
-	<t:if test="hasProductos()">
-		<t:eventlink event="eliminarTodos" class="btn btn-danger" style="color: white;">Eliminar todos</t:eventlink>
-	</t:if>
+	<div class="btn-toolbar">
+		<t:eventlink event="nuevo" class="btn btn-primary" style="color: white;">Nuevo producto</t:eventlink>
+		<t:if test="hasProductos()">
+			<t:eventlink event="eliminarTodos" class="btn btn-danger" style="color: white;">Eliminar todos</t:eventlink>
+		</t:if>
+	</div>
 </t:block>
 
 <t:block id="edicionBlock">
@@ -59,20 +61,19 @@
 		<div class="form-group">
 			<t:label for="fecha" />
 			<div class="controls">
-				
-			</div>
-			<div class="input-group">
-				<input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha" />
-				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+				<div class="input-group">
+					<input t:type="textfield" t:id="fecha" type="date" value="producto.fecha" label="Fecha" />
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+				</div>				
 			</div>
 		</div>
 
-		<div>
-			<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" />
+		<div class="btn-toolbar">
+			<input t:type="submit" class="btn btn-primary" value="prop:labels.get('guardar')" role="button"/>
 			<t:if test="producto.id">
-				<a t:type="eventlink" event="eliminar" context="producto.id" class="btn btn-danger" style="color: white;">Eliminar</a>
+				<a t:type="eventlink" event="eliminar" context="producto.id" role="button" class="btn btn-danger" style="color: white;">Eliminar</a>
 			</t:if>
-			<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" />
+			<input t:type="submit" class="btn btn-danger" value="Cancelar" mode="cancel" role="button"/>
 		</div>
 	</t:form>
 </t:block>

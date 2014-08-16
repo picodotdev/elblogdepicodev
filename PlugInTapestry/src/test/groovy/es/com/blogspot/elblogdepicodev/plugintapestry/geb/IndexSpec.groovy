@@ -3,7 +3,7 @@ package es.com.blogspot.elblogdepicodev.plugintapestry.geb
 import geb.Page
 import geb.spock.GebSpec
 
-    // Definición de la página índice 
+// Definición de la página índice 
 class IndexPage extends Page {
     // Localización
     static url = 'http://localhost:8080/PlugInTapestry/index'

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.services.AssetSource;
+import org.apache.tapestry5.services.javascript.JavaScriptAggregationStrategy;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.StylesheetLink;
 
@@ -30,6 +31,11 @@ public class PlugInStack implements JavaScriptStack {
 	@Override
 	public List<Asset> getJavaScriptLibraries() {
 		return Collections.emptyList();
+	}
+	
+	@Override
+	public JavaScriptAggregationStrategy getJavaScriptAggregationStrategy() {
+		return JavaScriptAggregationStrategy.COMBINE_AND_MINIMIZE;
 	}
 
 	@Override
