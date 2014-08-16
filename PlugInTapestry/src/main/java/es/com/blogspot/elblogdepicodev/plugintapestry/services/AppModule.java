@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
+import org.tynamo.security.services.SecurityFilterChainFactory;
+import org.tynamo.security.services.impl.SecurityFilterChain;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
@@ -95,6 +97,10 @@ public class AppModule {
 		configuration.add(CDN_DOMAIN_PORT, "");
 		configuration.add(CDN_DOMAIN_PATH, "cdn-plugintapestry");
 	}
+
+//	public static void contributeSecurityConfiguration(Configuration<SecurityFilterChain> configuration, SecurityFilterChainFactory factory) {
+//		configuration.add(factory.createChain("/admin/**").add(factory.authc()).build());
+//	}
 
 	public static void contributeWebSecurityManager(Configuration<Realm> configuration) {
 		ExtendedPropertiesRealm realm = new ExtendedPropertiesRealm("classpath:shiro-users.properties");
