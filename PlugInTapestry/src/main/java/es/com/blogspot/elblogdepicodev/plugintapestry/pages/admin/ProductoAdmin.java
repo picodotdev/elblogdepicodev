@@ -123,6 +123,11 @@ public class ProductoAdmin {
 	public GridDataSource getSource() {
 		return new HibernateGridDataSource(session, Producto.class) {
 			@Override
+			public int getAvailableRows() {
+				return (int) dao.countAll();
+			}
+			
+			@Override
 			public List find(Pagination pagination) {
 				return dao.findAll(pagination);
 			}

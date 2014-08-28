@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.apache.tapestry5.grid.GridDataSource;
 import org.apache.tapestry5.grid.SortConstraint;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 
 @SuppressWarnings({ "rawtypes" })
 public abstract class HibernateGridDataSource implements GridDataSource {
@@ -17,18 +15,28 @@ public abstract class HibernateGridDataSource implements GridDataSource {
 	private int start;
 	private List results;
 
+	public HibernateGridDataSource() {		
+	}
+	
 	public HibernateGridDataSource(Session session, Class clazz) {
 		this.session = session;
 		this.clazz = clazz;
 	}
+	
+	public Session getSession() {
+		return session;
+	}
 
-	@Override
-	public int getAvailableRows() {
-		Criteria criteria = session.createCriteria(clazz);
+	public void setSession(Session session) {
+		this.session = session;
+	}
 
-		criteria.setProjection(Projections.rowCount());
+	public Class getClazz() {
+		return clazz;
+	}
 
-		return ((Number) criteria.uniqueResult()).intValue();
+	public void setClazz(Class clazz) {
+		this.clazz = clazz;
 	}
 
 	@Override
@@ -36,10 +44,11 @@ public abstract class HibernateGridDataSource implements GridDataSource {
 		Pagination pagination = new Pagination(start, end, Sort.fromSortConstraint(sort));
 
 		this.start = start;
-
+		
 		results = find(pagination);
 	}
 
+	public abstract int getAvailableRows();
 	public abstract List find(Pagination pagination);
 
 	@Override

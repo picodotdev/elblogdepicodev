@@ -32,9 +32,13 @@ public class AppConfiguration {
 		ds.setUrl("jdbc:h2:mem:test");
 		ds.setUsername("sa");
 		ds.setPassword("sa");
+		//ds.setDriverClassName("com.mysql.jdbc.ReplicationDriver");
+		//ds.setUrl("jdbc:mysql:replication://127.0.0.1:3316,127.0.0.1:3326/test");
+		//ds.setUsername("root");
+		//ds.setPassword("");
 		return ds;
 	}
-	
+
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
@@ -43,32 +47,33 @@ public class AppConfiguration {
 		sf.setHibernateProperties(getHibernateProperties());
 		return sf;
 	}
-	
+
 	@Bean
 	public ResourceTransactionManager transactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager tm = new HibernateTransactionManager();
 		tm.setSessionFactory(sessionFactory);
 		return tm;
 	}
-	
+
 	@Bean
 	public ProductoEventAdapter productoEventAdapter() {
 		return new ProductoEventAdapter();
 	}
-	
+
 	@Bean
 	public ProductoDAO productoDAO(SessionFactory sessionFactory) {
 		return new ProductoDAOImpl(sessionFactory);
 	}
-	
+
 	@Bean
 	public DummyService dummyService() {
 		return new DummyService();
 	}
-	
+
 	private Properties getHibernateProperties() {
 		Map<String, Object> m = new HashMap<>();
 		m.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+		//m.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		m.put("hibernate.hbm2ddl.auto", "create");
 		// Debug
 		m.put("hibernate.generate_statistics", true);
