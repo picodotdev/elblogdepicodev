@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
-import org.tynamo.security.services.SecurityFilterChainFactory;
-import org.tynamo.security.services.impl.SecurityFilterChain;
 import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
