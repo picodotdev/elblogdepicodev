@@ -40,8 +40,6 @@ public class Realm extends AuthorizingRealm {
         byte[] salt = saltSource.getBytes();
         Sha512Hash hash= new Sha512Hash("password", saltSource, HASH_ITERATIONS);
         String password = hash.toBase64();
-        System.out.println("Base64: " + hash.toBase64());
-        System.out.println("Hex: " + hash.toHex());
 
         // Permissions (role, permissions)
         permissions = new HashMap<>();

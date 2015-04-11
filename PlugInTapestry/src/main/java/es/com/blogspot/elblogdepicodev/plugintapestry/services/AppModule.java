@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.tynamo.security.SecuritySymbols;
-import org.tynamo.shiro.extension.realm.text.ExtendedPropertiesRealm;
 
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.ContextListener;
 import es.com.blogspot.elblogdepicodev.plugintapestry.misc.DateTranslator;
@@ -104,7 +103,7 @@ public class AppModule {
 		// Realm básico
 //		ExtendedPropertiesRealm realm = new ExtendedPropertiesRealm("classpath:shiro-users.properties");
 		
-		// Realm con hash criptográfico y «salt»
+		// Realm con «salted password hashing» y «salt»
 		Realm realm = new es.com.blogspot.elblogdepicodev.plugintapestry.misc.Realm();
 
 		configuration.add(realm);
