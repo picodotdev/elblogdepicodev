@@ -5,10 +5,10 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'war'
 apply plugin: 'jetty'
-apply plugin: 'tomcat'
+apply plugin: 'com.bmuschko.tomcat'
 
 group = 'es.com.blogspot.elblogdepicodev.plugintapestry'
-version = '1.2'
+version = '1.3'
 
 buildscript {
     repositories {
@@ -17,7 +17,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4'
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.1'
     }
 }
 
@@ -57,32 +57,32 @@ sourceSets {
 
 dependencies {
     // Tapestry
-    compile 'org.apache.tapestry:tapestry-core:5.4-beta-28'
-    compile 'org.apache.tapestry:tapestry-hibernate:5.4-beta-28'
-    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-beta-28'
+    compile 'org.apache.tapestry:tapestry-core:5.4-beta-30'
+    compile 'org.apache.tapestry:tapestry-hibernate:5.4-beta-30'
+    compile 'org.apache.tapestry:tapestry-beanvalidator:5.4-beta-30'
 
     // Compresión automática de javascript y css en el modo producción
-    compile 'org.apache.tapestry:tapestry-webresources:5.4-beta-28'
+    compile 'org.apache.tapestry:tapestry-webresources:5.4-beta-30'
 
-    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-beta-28'
+    appJavadoc 'org.apache.tapestry:tapestry-javadoc:5.4-beta-30'
     
     // Spring
-    compile ('org.apache.tapestry:tapestry-spring:5.4-beta-28') {
+    compile ('org.apache.tapestry:tapestry-spring:5.4-beta-30') {
     	exclude(group: 'org.springframework')
     }
-    compile 'org.springframework:spring-web:4.0.6.RELEASE'
-    compile 'org.springframework:spring-orm:4.0.6.RELEASE'
-    compile 'org.springframework:spring-tx:4.0.6.RELEASE'
+    compile 'org.springframework:spring-web:4.1.6.RELEASE'
+    compile 'org.springframework:spring-orm:4.1.6.RELEASE'
+    compile 'org.springframework:spring-tx:4.1.6.RELEASE'
     compile 'commons-dbcp:commons-dbcp:1.4'
 
     // Hibernate
-    compile 'org.hibernate:hibernate-core:4.3.6.Final'
-    compile 'org.hibernate:hibernate-validator:5.1.2.Final'
-    compile 'com.h2database:h2:1.3.173'
+    compile 'org.hibernate:hibernate-core:4.3.8.Final'
+    compile 'org.hibernate:hibernate-validator:5.1.3.Final'
+    compile 'com.h2database:h2:1.4.186'
     compile 'mysql:mysql-connector-java:5.1.32'
     
     // Shiro (seguridad)
-    compile('org.tynamo:tapestry-security:0.6.0') {
+    compile('org.tynamo:tapestry-security:0.6.2') {
        exclude(group: 'org.apache.shiro')
     }
     compile 'org.apache.shiro:shiro-all:1.2.3'
@@ -90,7 +90,7 @@ dependencies {
 	compile 'com.google.guava:guava:16.0.1'
     
     // Pruebas unitarias
-    testCompile('org.apache.tapestry:tapestry-test:5.4-beta-28') {
+    testCompile('org.apache.tapestry:tapestry-test:5.4-beta-30') {
        exclude(group: 'org.testng')
     }
     testCompile 'net.sourceforge.tapestrytestify:tapestry-testify:1.0.4'
@@ -99,9 +99,9 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.9.5'
  
     // Pruebas de integración
-    testCompile 'org.gebish:geb-spock:0.9.3'
+    testCompile 'org.gebish:geb-spock:0.10.0'
     testCompile 'org.gebish:geb-junit4:0.9.3'
-    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0' 
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4' 
 
 	// Runtime
 	providedCompile 'org.jboss:jboss-vfs:3.2.1.Final'
@@ -110,11 +110,9 @@ dependencies {
     runtime 'org.jboss.logging:jboss-logging:3.1.4.GA'
 
 	// Tomcat embebido
-    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:7.0.55'
-    tomcat 'org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.55'
-    tomcat('org.apache.tomcat.embed:tomcat-embed-jasper:7.0.55') {
-        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
-    }
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:8.0.21'
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.21'
+    tomcat('org.apache.tomcat.embed:tomcat-embed-jasper:8.0.21')
 }
 
 tomcat {
@@ -124,7 +122,7 @@ tomcat {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.0'
+	gradleVersion = '2.3'
 }
 
 test {

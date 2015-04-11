@@ -101,7 +101,12 @@ public class AppModule {
 //	}
 
 	public static void contributeWebSecurityManager(Configuration<Realm> configuration) {
-		ExtendedPropertiesRealm realm = new ExtendedPropertiesRealm("classpath:shiro-users.properties");
+		// Realm básico
+//		ExtendedPropertiesRealm realm = new ExtendedPropertiesRealm("classpath:shiro-users.properties");
+		
+		// Realm con hash criptográfico y «salt»
+		Realm realm = new es.com.blogspot.elblogdepicodev.plugintapestry.misc.Realm();
+
 		configuration.add(realm);
 	}
 
