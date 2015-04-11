@@ -39,7 +39,9 @@ public class Realm extends AuthorizingRealm {
         ByteSource saltSource = new SecureRandomNumberGenerator().nextBytes();
         byte[] salt = saltSource.getBytes();
         Sha512Hash hash= new Sha512Hash("password", saltSource, HASH_ITERATIONS);
-        String password = hash.toBase64();
+        String password = hash.toHex();
+        // Contraseña codificada en Base64
+        //String password = hash.toBase64();
 
         // Permissions (role, permissions)
         permissions = new HashMap<>();
@@ -68,7 +70,7 @@ public class Realm extends AuthorizingRealm {
 		
 		HashedCredentialsMatcher cm = new HashedCredentialsMatcher(Sha512Hash.ALGORITHM_NAME);
 		cm.setHashIterations(HASH_ITERATIONS);
-		cm.setStoredCredentialsHexEncoded(false);
+		//cm.setStoredCredentialsHexEncoded(false);
 		
 		setName("local");
 		setAuthenticationTokenClass(UsernamePasswordToken.class);
