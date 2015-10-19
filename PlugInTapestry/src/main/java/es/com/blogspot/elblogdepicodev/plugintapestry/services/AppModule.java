@@ -92,7 +92,7 @@ public class AppModule {
 		configuration.add(CDN_DOMAIN_PROTOCOL, "http");
 		configuration.add(CDN_DOMAIN_HOST, "s3-eu-west-1.amazonaws.com");
 		configuration.add(CDN_DOMAIN_PORT, "");
-		configuration.add(CDN_DOMAIN_PATH, "cdn-plugintapestry");
+		configuration.add(CDN_DOMAIN_PATH, "");
 	}
 
 //	public static void contributeSecurityConfiguration(Configuration<SecurityFilterChain> configuration, SecurityFilterChainFactory factory) {
